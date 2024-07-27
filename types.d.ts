@@ -12,7 +12,7 @@ interface UserInterface extends Document {
   isVerified: boolean;
   isAcceptingMessages: boolean;
   createdAt: Date;
-  messages: MessageInterface[];
+  messages?: MessageInterface[];
 }
 
 interface ApiResponseInterface {

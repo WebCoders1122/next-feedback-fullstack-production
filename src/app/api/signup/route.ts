@@ -2,22 +2,41 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnet from "@/lib/dbConnect";
 import User from "@/model/UserModel";
-import bcrypt from "bcryptjs";
-import getformattedDate from "@/lib/getFormattedDate";
+import sendVerificationEmail from "@/lib/resendEmail";
+import getHashedPass from "@/helpers/getHashedPass";
+import getVerificationDetails from "@/helpers/getVerificationDetails";
 
 export async function POST(request: NextRequest) {
   await dbConnet();
   const { username, email, password } = await request.json();
   try {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const expiryDate = new Date(Date.now() + 3600000);
-    const verfiyToken = Math.floor(100000 + Math.random() * 900000);
-    const createAt = getformattedDate(new Date());
+    const hashedPassword = await getHashedPass(password);
+    const { verfiyToken, expiryDate, createAt } = getVerificationDetails();
     const user = await User.findOne({ email });
-    const messages: MessageInterface[] = [];
     if (user) {
-      //TODO check user email and verification status
+      if (user.isVerified) {
+        return NextResponse.json(
+          { error: "User already exists" },
+          { status: 400 }
+        );
+      } else {
+        const updatedUser = await User.findOneAndUpdate(
+          { email },
+          {
+            $set: {
+              username,
+              password: hashedPassword,
+              verfiyToken,
+              verifyTokenExpiry: expiryDate,
+              isVerified: false,
+              isAcceptingMessages: true,
+              createdAt: createAt,
+              messages: [],
+            },
+          },
+          { new: true }
+        );
+      }
     } else {
       const newUser = new User({
         username,
@@ -28,11 +47,14 @@ export async function POST(request: NextRequest) {
         isVerified: false,
         isAcceptingMessages: true,
         createdAt: createAt,
-        messages,
+        messages: [],
       });
       const savedUser = await newUser.save();
     }
     // to send email using sender
+    await sendVerificationEmail(username, email, verfiyToken);
+    // sending response
+    return NextResponse.json({ message: "Signup Successful" }, { status: 201 });
   } catch (error) {
     console.error("user registeration failed due to error", error);
     return NextResponse.json(
