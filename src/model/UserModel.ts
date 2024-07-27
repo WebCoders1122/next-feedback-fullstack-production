@@ -1,11 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { string } from "zod";
 
-export interface MessageInterface extends Document {
-  content: string;
-  createAt: Date;
-}
-
 const messageSchema: Schema<MessageInterface> = new Schema({
   content: { type: String, required: [true, "Message Content Required"] },
   createAt: {
@@ -13,18 +8,6 @@ const messageSchema: Schema<MessageInterface> = new Schema({
     required: [true, "Message Creation Date is required"],
   },
 });
-
-export interface UserInterface extends Document {
-  username: string;
-  email: string;
-  password: string;
-  verfiyToken: string;
-  verifyTokenExpiry: Date;
-  isVerified: boolean;
-  isAcceptingMessages: boolean;
-  createdAt: Date;
-  messages: MessageInterface[];
-}
 
 const userSchema: Schema<UserInterface> = new Schema({
   username: {
