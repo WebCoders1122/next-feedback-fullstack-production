@@ -5,7 +5,9 @@ export const usernameValidation = z
   .min(3, { message: "username must at least of 3 characters" })
   .max(15, { message: "username must no more than characters" })
   .regex(/^(?=.{4,16}$)(?!.*[_]{2})[a-zA-Z0-9_]+$/, {
-    message: 'username should be Alpha Numaric & can have one underscore "_" ',
+    message: `-username should be Alpha Numaric
+              -can have one underscore "_"
+              -cannot have special charactors ie "$, @, * etc" `,
   });
 
 export const signUpSchema = z.object({
