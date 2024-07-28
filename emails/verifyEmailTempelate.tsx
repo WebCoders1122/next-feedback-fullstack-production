@@ -2,9 +2,9 @@ import { Body, Head, Html } from "@react-email/components";
 
 type Props = {
   username: string;
-  verifyToken: string;
+  verifyCode: string;
 };
-const verifyEmailTempelate = ({ username, verifyToken }: Props) => {
+const verifyEmailTempelate = ({ username, verifyCode }: Props) => {
   return (
     <Html>
       <Head>
@@ -17,7 +17,7 @@ const verifyEmailTempelate = ({ username, verifyToken }: Props) => {
           Welcome to Anonymus Feedback website. Please enter the following code
           to verify and complete your signup process.
         </p>
-        <code>{verifyToken}</code>
+        <code>{verifyCode}</code>
         <span>This code is valid for one hour only</span>
       </Body>
     </Html>

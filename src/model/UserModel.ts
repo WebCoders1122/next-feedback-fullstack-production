@@ -24,13 +24,11 @@ const userSchema: Schema<UserInterface> = new Schema({
     type: String,
     required: [true, "Password Required"],
   },
-  verfiyToken: {
+  verifyCode: {
     type: String,
-    required: [true, "Verify Token Required"],
   },
-  verifyTokenExpiry: {
+  verifyCodeExpiry: {
     type: Date,
-    required: [true, "Verify Token Expiry Required"],
   },
   isVerified: {
     type: Boolean,

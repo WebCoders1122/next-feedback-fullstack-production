@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
   const { username, email, password } = await request.json();
   try {
     const hashedPassword = await getHashedPass(password);
-    const { verfiyToken, expiryDate, createAt } = getVerificationDetails();
+    const { verifyCode, expiryDate, createAt } = getVerificationDetails();
     const user = await User.findOne({ email });
     if (user) {
       if (user.isVerified) {
@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
             $set: {
               username,
               password: hashedPassword,
-              verfiyToken,
-              verifyTokenExpiry: expiryDate,
+              verifyCode,
+              verifyCodeExpiry: expiryDate,
               isVerified: false,
               isAcceptingMessages: true,
               createdAt: createAt,
@@ -42,8 +42,8 @@ export async function POST(request: NextRequest) {
         username,
         email,
         password: hashedPassword,
-        verfiyToken,
-        verifyTokenExpiry: expiryDate,
+        verifyCode,
+        verifyCodeExpiry: expiryDate,
         isVerified: false,
         isAcceptingMessages: true,
         createdAt: createAt,
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       const savedUser = await newUser.save();
     }
     // to send email using sender
-    await sendVerificationEmail(username, email, verfiyToken);
+    await sendVerificationEmail(username, email, verifyCode);
     // sending response
     return NextResponse.json({ message: "Signup Successful" }, { status: 201 });
   } catch (error) {

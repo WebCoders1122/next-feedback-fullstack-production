@@ -7,8 +7,8 @@ interface UserInterface extends Document {
   username: string;
   email: string;
   password: string;
-  verfiyToken: string;
-  verifyTokenExpiry: Date;
+  verifyCode: string | undefined;
+  verifyCodeExpiry: Date | undefined;
   isVerified: boolean;
   isAcceptingMessages: boolean;
   createdAt: Date;

@@ -6,7 +6,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export default async function sendVerificationEmail(
   username: string,
   email: string,
-  verifyToken: string
+  verifyCode: string
 ): Promise<ApiResponseInterface> {
   console.log("send email");
   try {
@@ -14,7 +14,7 @@ export default async function sendVerificationEmail(
       from: "onboarding@resend.dev",
       to: "webcoders1122@gmail.com",
       subject: "Feedback App | Verify Your Email Address",
-      react: verifyEmailTempelate({ username, verifyToken }),
+      react: verifyEmailTempelate({ username, verifyCode }),
     });
     console.log(emailResponse, "email response");
     return {
