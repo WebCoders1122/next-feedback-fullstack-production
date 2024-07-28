@@ -9,7 +9,7 @@ const verifyCodeQuerySchema = z.object({
   verifyCode: verifySchema,
 });
 
-export async function POST(request: NextRequest) {
+export async function PATCH(request: NextRequest) {
   await dbConnet();
   const { codeToVerify, username } = await request.json();
   if (!codeToVerify) {
