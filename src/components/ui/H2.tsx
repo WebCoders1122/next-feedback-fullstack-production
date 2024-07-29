@@ -11,7 +11,7 @@ const H2 = ({
   return (
     <h2
       className={cn(
-        "text-3xl font-semibold tracking-tight transition-colors first:mt-0 mx-2",
+        "text-primary text-center text-4xl transition-colors first:mt-0 mx-2 scroll-m-20 font-extrabold tracking-tight lg:text-5xl",
         className
       )}>
       {children}

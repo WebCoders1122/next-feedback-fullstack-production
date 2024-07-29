@@ -83,7 +83,7 @@ const VerifyPage = () => {
         {/* heading div started */}
         <Card>
           <CardHeader>
-            <H2 className='text-4xl text-center font-bold'>Verify Account</H2>
+            <H2>Verify Account</H2>
             <P>
               Please enter the 6-digit verification code that you received in
               your email.

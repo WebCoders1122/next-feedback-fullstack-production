@@ -124,9 +124,8 @@ const SignupPage = () => {
         {/* heading div started */}
         <Card>
           <CardHeader>
-            <H2 className='text-4xl text-center font-bold'>
-              Signup to Feedback App
-            </H2>
+            {/* TODO: try to adjust lineheight of heading and margin or paragraph in signup, login and verify pages */}
+            <H2>Signup to Feedback App</H2>
             <P>Pleae signup to get started</P>
           </CardHeader>
           <CardContent>
@@ -196,7 +195,7 @@ const SignupPage = () => {
                   control={register.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>Password</FormLabel>
                       <FormControl>
                         <Input
                           type='password'
