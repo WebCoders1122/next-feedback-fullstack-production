@@ -13,10 +13,10 @@ export async function middleware(request: NextRequest) {
     // Redirect to login page if not authenticated
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
-  console.log(!token && !publicURL.includes(url), url);
-  if (!token && !publicURL.includes(url)) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
+  // console.log(!token && !publicURL.includes(url), url);
+  // if (!token && !publicURL.includes(url)) {
+  //   return NextResponse.redirect(new URL("/login", request.url));
+  // }
   // If authenticated, continue with the request
   return NextResponse.next();
 }
