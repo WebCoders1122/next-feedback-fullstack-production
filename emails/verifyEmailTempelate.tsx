@@ -17,7 +17,7 @@ const verifyEmailTempelate = ({ username, verifyCode }: Props) => {
           Welcome to Anonymus Feedback website. Please enter the following code
           to verify and complete your signup process.
         </p>
-        <code className='text-2xl font-bold'>{verifyCode}</code>
+        <h3 className='text-2xl font-bold'>{verifyCode}</h3>
         <br />
         <p>This code is valid for one hour only</p>
         <p>with best Regards</p>

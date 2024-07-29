@@ -1,14 +1,23 @@
 //signup nextjs page with username validation via zod
 "use client";
 
-import { z } from "zod";
-import axios, { AxiosError } from "axios";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema } from "@/schemas/signUpSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useDebounceCallback } from "usehooks-ts";
+import { z } from "zod";
 //shadcn imports
+import H2 from "@/components/ui/H2";
+import P from "@/components/ui/P";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -18,24 +27,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import H2 from "@/components/ui/H2";
-import P from "@/components/ui/P";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
-import Link from "next/link";
 import { useToast } from "@/components/ui/use-toast";
-import { set } from "mongoose";
-import { APIPromise } from "openai/core.mjs";
-import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const SignupPage = () => {
   //react states to manege username, isCheckingUsernameValidation, isLoadingValidationMessage, validationMessage, isvalidated, isRegistering
@@ -68,20 +64,26 @@ const SignupPage = () => {
   async function onSubmit(values: z.infer<typeof signUpSchema>) {
     setIsRegistering(true);
     try {
-      const response = await axios.post("/api/signup", values);
+      const response = await axios.post<ApiResponseInterface>(
+        "/api/signup",
+        values
+      );
       toast({
         title: response.data.message,
         variant: "success",
       });
       console.log(response);
       setTimeout(() => {
-        router.push("/verify");
+        router.push(`/verify/${username}`);
       }, 500);
-      //TODO: remove this timout
-    } catch (error: any) {
+      //TODO: remove this timout and push ==> replace
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiResponseInterface>;
       console.log(error);
+      const errorMessage =
+        axiosError.response?.data.message ?? "Registeration Failed";
       toast({
-        title: error.response.data.message,
+        title: errorMessage,
       });
     } finally {
       setIsRegistering(false);
@@ -99,21 +101,23 @@ const SignupPage = () => {
       if (!username) return;
       setIsCheckingUsernameValidation(true);
       try {
-        const response = await axios.get(
+        const response = await axios.get<ApiResponseInterface>(
           `/api/validate-username?username=${username}`
         );
         setIsvalidated(response.data.success);
         setValidationMessage(response.data.message);
-      } catch (error: any) {
-        setIsvalidated(error.response.data.success);
-        setValidationMessage(error.response.data.message);
+      } catch (error) {
+        const axiosError = error as AxiosError<ApiResponseInterface>;
+        setIsvalidated(axiosError.response?.data.success ?? false);
+        setValidationMessage(
+          axiosError.response?.data.message ?? "Username Validation Failed"
+        );
       } finally {
         setIsCheckingUsernameValidation(false);
       }
     };
     checkUsernameValidation();
   }, [username]);
-
   return (
     <div className='bg-secondary sm:min-h-screen flex justify-center items-center'>
       <div className='w-full max-w-screen sm:max-w-md'>
@@ -240,3 +244,5 @@ const SignupPage = () => {
   );
 };
 export default SignupPage;
+
+//TODO: add error and loading pages for this path

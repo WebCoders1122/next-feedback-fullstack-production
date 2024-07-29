@@ -18,10 +18,12 @@ export async function PATCH(request: NextRequest) {
       { status: 400 }
     );
   }
-  const validationResult = verifyCodeQuerySchema.safeParse({
-    verifyCode: codeToVerify,
-  });
 
+  const validationResult = verifyCodeQuerySchema.safeParse({
+    verifyCode: {
+      Code: codeToVerify,
+    },
+  });
   // this if will check for erros in case of validation fails and send error messeges to users
   if (!validationResult.success) {
     const validationErrorsArray =
@@ -45,7 +47,6 @@ export async function PATCH(request: NextRequest) {
         { status: 404 }
       );
     }
-    console.log("user found");
     //check the code is true and not expired
     const isCorrectCode = userToVerify.verifyCode === codeToVerify;
     const isNotExpiredCode =

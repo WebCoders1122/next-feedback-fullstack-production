@@ -29,3 +29,7 @@ export default async function sendVerificationEmail(
     };
   }
 }
+// TODO: send verification success email after completion of project
+export async function sendVerificationSuccessMail(username: string) {
+  // return <div>resendEmail</div>;
+}
