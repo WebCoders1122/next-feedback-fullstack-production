@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import SessionProviderContext from "./context/SessionProvider";
+import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +20,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <SessionProviderContext>
-        <body className={inter.className}>{children}</body>
+        {/* //TODO add darkmode in app */}
+        <body className={(cn(inter.className), "")}>
+          {children}
+          <Toaster />
+        </body>
       </SessionProviderContext>
     </html>
   );
