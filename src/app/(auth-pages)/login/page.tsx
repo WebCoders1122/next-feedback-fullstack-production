@@ -34,7 +34,7 @@ import { useRouter } from "next/navigation";
 import { loginSchema } from "@/schemas/loginSchema";
 import { signIn } from "next-auth/react";
 
-const SignupPage = () => {
+const LoginPage = () => {
   // for button disaling and animation
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
@@ -63,6 +63,7 @@ const SignupPage = () => {
         password: values.password,
       });
       console.log(response);
+      // TODO: page getting refreshed, so thist part or try and catch is pending
       setTimeout(() => {
         // router.push(`/verify/${username}`);
       }, 500);
@@ -165,6 +166,6 @@ const SignupPage = () => {
     </div>
   );
 };
-export default SignupPage;
+export default LoginPage;
 
 //TODO: try to add login with both => username and password
