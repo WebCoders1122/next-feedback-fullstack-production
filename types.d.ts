@@ -1,3 +1,4 @@
+import { Document } from "mongoose";
 interface MessageInterface extends Document {
   content: string;
   createAt: Date;

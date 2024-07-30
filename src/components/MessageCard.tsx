@@ -1,10 +1,6 @@
 "use client";
-import { useSession } from "next-auth/react";
 import { X } from "lucide-react";
 // shadcn imports
-import { Card, CardContent, CardHeader } from "./ui/card";
-import H3 from "./ui/H3";
-import { Button } from "./ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,6 +13,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import axios, { AxiosError } from "axios";
+import { Button } from "./ui/button";
+import { Card, CardContent } from "./ui/card";
 import { useToast } from "./ui/use-toast";
 
 type Props = {
@@ -28,7 +26,6 @@ type Props = {
   onMessageDelete: (messageID: string) => void;
 };
 const MessageCard = ({ message, onMessageDelete }: Props) => {
-  const { data: session } = useSession();
   const { toast } = useToast();
 
   //function to delete the message from DB
@@ -95,3 +92,5 @@ const MessageCard = ({ message, onMessageDelete }: Props) => {
   );
 };
 export default MessageCard;
+
+//TODO: delete all unused imports from every file
