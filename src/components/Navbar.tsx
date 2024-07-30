@@ -17,7 +17,8 @@ const Navbar = () => {
   //   }
   return (
     <>
-      {session ? (
+      {/* TODO: change it to "session" instead of "!session" */}
+      {!session ? (
         <div className='bg-slate-50 border-b p-5 shadow flex justify-around items-center'>
           <Link href='/'>
             <h2 className='font-bold text-primary text-2xl uppercase cursor-pointer'>
