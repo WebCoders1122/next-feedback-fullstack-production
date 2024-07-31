@@ -9,7 +9,6 @@ import { Button } from "./ui/button";
 const Navbar = () => {
   const { data: session } = useSession();
   const user = session?.user as User;
-  console.log(session);
 
   return (
     <nav className='bg-card w-full border-b py-8 shadow flex justify-between items-center px-20 mx-auto'>

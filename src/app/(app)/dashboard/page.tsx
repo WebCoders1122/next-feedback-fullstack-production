@@ -3,10 +3,8 @@ import { useSession } from "next-auth/react";
 import axios, { AxiosError } from "axios";
 import { User } from "next-auth";
 import { useCallback, useEffect, useState } from "react";
-import { ApiResponseInterface } from "../../../types";
 import { useToast } from "@/components/ui/use-toast";
 import { useForm } from "react-hook-form";
-import { MessageInterface } from "../../../types";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import H3 from "@/components/ui/H3";
@@ -14,6 +12,7 @@ import P from "@/components/ui/P";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import MessageCard from "@/components/MessageCard";
+import { ApiResponseInterface, MessageInterface } from "../../../../types";
 
 const initialState = [
   {
@@ -58,7 +57,7 @@ const Dashboard = () => {
   const acceptingMessageState = watch("acceptingMessageState");
 
   //for making url
-  const baseUrl = window.location.origin;
+  const baseUrl = window.location.origin!;
   const userUrl = `${baseUrl}/u/${user?.username}`;
 
   //getting isAcceptingMessage sate from server
@@ -144,9 +143,7 @@ const Dashboard = () => {
 
   //Optimistic UI stretegy for remving from UI
   const onMessageDelete = (messageID: string) => {
-    console.log(messageID);
     const newMessages = messages.filter((message) => {
-      console.log(message._id !== messageID);
       return message._id !== messageID;
     });
     setMessages(newMessages);

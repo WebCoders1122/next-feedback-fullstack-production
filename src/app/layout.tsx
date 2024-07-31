@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang='en'>
       <SessionProviderContext>
         {/* //TODO add darkmode in app */}
-        <body className={(cn(inter.className), "dark")}>
+        <body className={(cn(inter.className), "")}>
           {children}
           <Toaster />
         </body>
