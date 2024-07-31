@@ -9,7 +9,7 @@ import bcrypt from "bcryptjs";
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      id: "Credentials",
+      id: "credentials",
       name: "Credentials",
       // these credentials will provide values from user and also make html form
       credentials: {
@@ -30,8 +30,8 @@ export const authOptions: NextAuthOptions = {
           //find user from mongoDB
           const user = await User.findOne({
             $or: [
-              { email: credentials.identifier },
-              { username: credentials.identifier },
+              { email: credentials.email },
+              { username: credentials.username },
             ],
           });
           //checking user details

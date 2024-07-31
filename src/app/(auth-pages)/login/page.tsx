@@ -54,35 +54,26 @@ const LoginPage = () => {
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof loginSchema>) => {
     setIsLoggingIn(true);
-    try {
-      const result = await signIn("credentials", {
-        redirect: false,
-        email: values.email,
-        password: values.password,
-      });
-      // const response = await signIn("credentials", {
-      //   redirect: false,
-      //   email: values.email,
-      //   password: values.password,
-      // });
-      // console.log(response);
-
-      // TODO: page getting refreshed, so thist part or try and catch is pending
-      setTimeout(() => {
-        // router.push(`/verify/${username}`);
-      }, 500);
-      //TODO: remove this timout and push ==> replace
-    } catch (error) {
-      // const axiosError = error as AxiosError<ApiResponseInterface>;
-      console.log(error);
-      // const errorMessage =
-      //   axiosError.response?.data.message ?? "Registeration Failed";
-      // toast({
-      //   title: errorMessage,
-      // });
-    } finally {
+    const response = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    });
+    if (response?.error) {
       setIsLoggingIn(false);
+      return toast({
+        title: "Error Loggin in",
+        description: response.error,
+        variant: "destructive",
+      });
     }
+    toast({
+      title: "Logged in Successfully",
+      variant: "success",
+    });
+    router.push("/dashboard");
+    //TODO: remove this timout and push ==> replace
+    setIsLoggingIn(false);
   };
 
   return (

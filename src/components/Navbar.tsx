@@ -9,6 +9,8 @@ import { Button } from "./ui/button";
 const Navbar = () => {
   const { data: session } = useSession();
   const user = session?.user as User;
+  console.log(session);
+
   return (
     <nav className='bg-card w-full border-b py-8 shadow flex justify-between items-center px-20 mx-auto'>
       <Link href='/'>
@@ -16,9 +18,8 @@ const Navbar = () => {
           Feedback App
         </h2>
       </Link>
-      {/* TODO: change it with session user username */}
       {session ? (
-        <p className='text-xl font-medium'>Welcome {"username"}!</p>
+        <p className='text-xl font-medium'>Welcome {user.username}!</p>
       ) : null}
       {session ? (
         <Button onClick={() => signOut()}>Sign Out</Button>

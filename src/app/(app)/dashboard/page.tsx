@@ -137,13 +137,10 @@ const Dashboard = () => {
   }, []);
   // TODO:uncomment following code
   // initializing dashboard
-  // useEffect(() => {
-  //   getIsAcceptingMessages();
-  //   getMessages();
-  // }, [session]);
   useEffect(() => {
-    console.log("re rendered");
-  }, [messages]);
+    getIsAcceptingMessages();
+    getMessages();
+  }, [session]);
 
   //Optimistic UI stretegy for remving from UI
   const onMessageDelete = (messageID: string) => {
@@ -152,7 +149,6 @@ const Dashboard = () => {
       console.log(message._id !== messageID);
       return message._id !== messageID;
     });
-    console.log(newMessages);
     setMessages(newMessages);
   };
 
@@ -176,10 +172,6 @@ const Dashboard = () => {
       {/* 2nd section */}
       <div className='mt-20'>
         <div className='flex items-center gap-2'>
-          <Button
-            onClick={() => setMessages(initialState as MessageInterface[])}>
-            Fetch
-          </Button>
           <Switch
             {...register}
             onCheckedChange={(checked) => setIsAcceptingMessages(checked)}

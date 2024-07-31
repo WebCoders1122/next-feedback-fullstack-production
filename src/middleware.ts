@@ -2,21 +2,23 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-const publicURL = ["/login", "/signup", "/", "/verify"];
+const publicURL = ["/login", "/signup", "/"];
 
 export async function middleware(request: NextRequest) {
   // Check if the user is authenticated
   const token = await getToken({ req: request });
   const url = request.nextUrl.pathname;
 
-  if (token && publicURL.includes(url)) {
+  if (
+    (token && publicURL.includes(url)) ||
+    (token && url.startsWith("/verify"))
+  ) {
     // Redirect to login page if not authenticated
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
-  // console.log(!token && !publicURL.includes(url), url);
-  // if (!token && !publicURL.includes(url)) {
-  //   return NextResponse.redirect(new URL("/login", request.url));
-  // }
+  if (!token && url.startsWith("/dashboard")) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
   // If authenticated, continue with the request
   return NextResponse.next();
 }
