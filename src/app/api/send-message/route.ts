@@ -2,6 +2,7 @@
 import User from "@/model/UserModel";
 import { NextRequest, NextResponse } from "next/server";
 import dbConnet from "@/lib/dbConnect";
+import { MessageInterface } from "../../../../types";
 
 export async function POST(request: NextRequest) {
   await dbConnet();

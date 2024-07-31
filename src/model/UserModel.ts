@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { string } from "zod";
+import { MessageInterface, UserInterface } from "../../types";
 
 const messageSchema: Schema<MessageInterface> = new Schema({
   content: { type: String, required: [true, "Message Content Required"] },

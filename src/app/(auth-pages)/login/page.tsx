@@ -1,11 +1,9 @@
 //signin nextjs page with username validation via zod and next auth
 "use client";
 
-import { signUpSchema } from "@/schemas/signUpSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDebounceCallback } from "usehooks-ts";
 import { z } from "zod";
 //shadcn imports
 import H2 from "@/components/ui/H2";
@@ -28,11 +26,11 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { useToast } from "@/components/ui/use-toast";
+import { loginSchema } from "@/schemas/loginSchema";
 import { Loader2 } from "lucide-react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { loginSchema } from "@/schemas/loginSchema";
-import { signIn } from "next-auth/react";
 
 const LoginPage = () => {
   // for button disaling and animation
@@ -63,6 +61,7 @@ const LoginPage = () => {
         password: values.password,
       });
       console.log(response);
+
       // TODO: page getting refreshed, so thist part or try and catch is pending
       setTimeout(() => {
         // router.push(`/verify/${username}`);

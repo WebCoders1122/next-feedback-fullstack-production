@@ -9,35 +9,31 @@ import { Button } from "./ui/button";
 const Navbar = () => {
   const { data: session } = useSession();
   const user = session?.user as User;
-
-  //   if (!session) {
-  //     return (
-
-  //     );
-  //   }
   return (
-    <>
-      {/* TODO: change it to "session" instead of "!session" */}
-      {!session ? (
-        <div className='bg-slate-50 border-b p-5 shadow flex justify-around items-center'>
-          <Link href='/'>
-            <h2 className='font-bold text-primary text-2xl uppercase cursor-pointer'>
-              Feedback App
-            </h2>
-          </Link>
-          {/* TODO: change it with session user username */}
-          <p>Welcome {"username"}!</p>
-          <Button onClick={() => signOut()}>Sign Out</Button>
-        </div>
+    <nav className='bg-background w-full border-b py-8 shadow flex justify-between items-center px-20 mx-auto'>
+      <Link href='/'>
+        <h2 className='font-bold text-primary text-2xl uppercase cursor-pointer'>
+          Feedback App
+        </h2>
+      </Link>
+      {/* TODO: change it with session user username */}
+      <p className='text-xl font-medium'>Welcome {"username"}!</p>
+      {session ? (
+        <Button onClick={() => signOut()}>Sign Out</Button>
       ) : (
-        <div className='min-h-screen flex flex-col items-center justify-center gap-5'>
+        <Link href='/login'>
+          <Button>Login</Button>
+        </Link>
+      )}
+    </nav>
+  );
+};
+export default Navbar;
+{
+  /* <div className='min-h-screen flex flex-col items-center justify-center gap-5'>
           <H3>Please Login to Use Feedback App</H3>
           <Link href='/login'>
             <Button>Login</Button>
           </Link>
-        </div>
-      )}
-    </>
-  );
-};
-export default Navbar;
+        </div> */
+}

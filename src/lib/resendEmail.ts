@@ -1,6 +1,7 @@
 // configuration of 'resend' for sending email to user
 import { Resend } from "resend";
 import verifyEmailTempelate from "../../emails/verifyEmailTempelate";
+import { ApiResponseInterface } from "../../types";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function sendVerificationEmail(

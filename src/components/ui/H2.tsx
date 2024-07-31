@@ -12,7 +12,7 @@ const H2 = ({
     <h2
       className={cn(
         className,
-        "text-primary text-center text-4xl transition-colors first:mt-0 mx-2 scroll-m-20 font-extrabold tracking-tight lg:text-5xl"
+        "text-card-foreground text-center text-4xl transition-colors first:mt-0 mx-2 scroll-m-20 font-extrabold tracking-tight lg:text-5xl"
       )}>
       {children}
     </h2>

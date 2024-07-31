@@ -32,6 +32,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { ApiResponseInterface } from "../../../../types";
 
 const SignupPage = () => {
   //react states to manege username, isCheckingUsernameValidation, isLoadingValidationMessage, validationMessage, isvalidated, isRegistering
@@ -119,7 +120,7 @@ const SignupPage = () => {
     checkUsernameValidation();
   }, [username]);
   return (
-    <div className='bg-secondary sm:min-h-screen flex justify-center items-center'>
+    <div className='bg-background sm:min-h-screen flex justify-center items-center'>
       <div className='w-full max-w-screen sm:max-w-md'>
         {/* heading div started */}
         <Card>

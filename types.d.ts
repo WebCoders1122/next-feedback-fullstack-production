@@ -1,10 +1,18 @@
 import { Document } from "mongoose";
-interface MessageInterface extends Document {
+export interface ApiResponseInterface {
+  success: boolean;
+  message: string;
+  isAcceptingMessages?: boolean;
+  messages?: MessageInterface[];
+}
+
+export interface MessageInterface extends Document {
+  _id?: string;
   content: string;
   createAt: Date;
 }
 
-interface UserInterface extends Document {
+export interface UserInterface extends Document {
   username: string;
   email: string;
   password: string;
@@ -13,12 +21,5 @@ interface UserInterface extends Document {
   isVerified: boolean;
   isAcceptingMessages: boolean;
   createdAt: Date;
-  messages?: MessageInterface[];
-}
-
-interface ApiResponseInterface {
-  success: boolean;
-  message: string;
-  isAcceptingMessages?: boolean;
   messages?: MessageInterface[];
 }

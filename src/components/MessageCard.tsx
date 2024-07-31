@@ -16,13 +16,10 @@ import axios, { AxiosError } from "axios";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { useToast } from "./ui/use-toast";
+import { ApiResponseInterface, MessageInterface } from "../../types";
 
 type Props = {
-  message: {
-    _id: string;
-    content: string;
-    createAt: Date;
-  };
+  message: MessageInterface;
   onMessageDelete: (messageID: string) => void;
 };
 const MessageCard = ({ message, onMessageDelete }: Props) => {
@@ -30,26 +27,26 @@ const MessageCard = ({ message, onMessageDelete }: Props) => {
 
   //function to delete the message from DB
   const handleMessageDelete = async () => {
-    try {
-      const response = await axios.delete<ApiResponseInterface>(
-        `/api/delete-message/${message._id}`
-      );
-      toast({
-        title: "Message Deleted",
-        description: response.data.message,
-        variant: "success",
-      });
-      onMessageDelete(message._id);
-    } catch (error) {
-      const axiosError = error as AxiosError<ApiResponseInterface>;
-      console.log(error);
-      toast({
-        title: "Error While Deleting Message",
-        description:
-          axiosError.response?.data.message || "Something went wrong",
-        variant: "destructive",
-      });
-    }
+    onMessageDelete(message._id as string);
+    // try {
+    //   const response = await axios.delete<ApiResponseInterface>(
+    //     `/api/delete-message/${message._id}`
+    //   );
+    //   toast({
+    //     title: "Message Deleted",
+    //     description: response.data.message,
+    //     variant: "success",
+    //   });
+    // } catch (error) {
+    //   const axiosError = error as AxiosError<ApiResponseInterface>;
+    //   console.log(error);
+    //   toast({
+    //     title: "Error While Deleting Message",
+    //     description:
+    //       axiosError.response?.data.message || "Something went wrong",
+    //     variant: "destructive",
+    //   });
+    // }
   };
 
   return (

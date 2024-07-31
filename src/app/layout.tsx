@@ -4,6 +4,7 @@ import "./globals.css";
 import SessionProviderContext from "./context/SessionProvider";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +20,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <SessionProviderContext>
-        {/* //TODO add darkmode in app */}
-        <body className={(cn(inter.className), "")}>
-          {children}
-          <Toaster />
-        </body>
-      </SessionProviderContext>
+      {/* <SessionProviderContext> */}
+      {/* //TODO add darkmode in app */}
+      <body className={(cn(inter.className), "dark")}>
+        {/* <Navbar /> */}
+        {children}
+        <Toaster />
+      </body>
+      {/* </SessionProviderContext> */}
     </html>
   );
 }
+//TODO: make all dark and light mode colors accurate
