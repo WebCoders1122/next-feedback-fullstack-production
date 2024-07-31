@@ -52,15 +52,20 @@ const LoginPage = () => {
   });
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof loginSchema>) {
+  const onSubmit = async (values: z.infer<typeof loginSchema>) => {
     setIsLoggingIn(true);
     try {
-      const response = await signIn("credentials", {
+      const result = await signIn("credentials", {
         redirect: false,
         email: values.email,
         password: values.password,
       });
-      console.log(response);
+      // const response = await signIn("credentials", {
+      //   redirect: false,
+      //   email: values.email,
+      //   password: values.password,
+      // });
+      // console.log(response);
 
       // TODO: page getting refreshed, so thist part or try and catch is pending
       setTimeout(() => {
@@ -78,10 +83,10 @@ const LoginPage = () => {
     } finally {
       setIsLoggingIn(false);
     }
-  }
+  };
 
   return (
-    <div className='bg-secondary sm:min-h-screen flex justify-center items-center'>
+    <div className='bg-background sm:min-h-screen flex justify-center items-center'>
       <div className='w-full max-w-screen sm:max-w-md'>
         {/* heading div started */}
         <Card>

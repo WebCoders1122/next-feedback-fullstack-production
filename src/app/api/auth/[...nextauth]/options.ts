@@ -23,6 +23,7 @@ export const authOptions: NextAuthOptions = {
       },
       //this used to connect DB, find user from DB and return user
       async authorize(credentials: any): Promise<any> {
+        console.log(credentials, "Credentials");
         //connect DB
         await dbConnet();
         try {

@@ -79,16 +79,16 @@ const VerifyPage = () => {
     }
   };
   return (
-    <div className='bg-secondary sm:min-h-screen flex justify-center items-center'>
+    <div className='bg-background sm:min-h-screen flex justify-center items-center'>
       <div className='w-full max-w-screen sm:max-w-md'>
         {/* heading div started */}
         <Card>
           <CardHeader>
             <H2>Verify Account</H2>
-            <P>
+            <p className='text-muted-foreground text-center py-3'>
               Please enter the 6-digit verification code that you received in
               your email.
-            </P>
+            </p>
           </CardHeader>
           <CardContent>
             {/* form started */}
