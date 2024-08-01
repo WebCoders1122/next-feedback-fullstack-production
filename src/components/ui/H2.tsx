@@ -5,7 +5,7 @@ const H2 = ({
   children,
   className,
 }: {
-  children: string;
+  children: string | string[];
   className?: string;
 }) => {
   return (
