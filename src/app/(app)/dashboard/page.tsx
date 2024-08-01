@@ -13,6 +13,8 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import MessageCard from "@/components/MessageCard";
 import { ApiResponseInterface, MessageInterface } from "../../../../types";
+import { RotateCw } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 const initialState = [
   {
@@ -88,6 +90,7 @@ const Dashboard = () => {
           "/api/accept-message-status",
           { isAcceptingMessages }
         );
+        setValue("acceptingMessageState", isAcceptingMessages);
         toast({
           title: "Success",
           description: response.data.message,
@@ -101,7 +104,7 @@ const Dashboard = () => {
         });
       }
     },
-    [setValue]
+    []
   );
 
   // copy url to clipboard
@@ -134,12 +137,14 @@ const Dashboard = () => {
       setFetchigMessage(false);
     }
   }, []);
-  // TODO:uncomment following code
+
   // initializing dashboard
   useEffect(() => {
     getIsAcceptingMessages();
+  }, [acceptingMessageState]);
+  useEffect(() => {
     getMessages();
-  }, [session]);
+  }, [setMessages]);
 
   //Optimistic UI stretegy for remving from UI
   const onMessageDelete = (messageID: string) => {
@@ -148,26 +153,28 @@ const Dashboard = () => {
     });
     setMessages(newMessages);
   };
-
+  console.log(acceptingMessageState);
   return (
-    <div className='max-w-5xl flex flex-col justify-center p-10 mx-auto'>
-      <H3 className='mb-3'>Welcome to User Dashboard</H3>
+    <div className='max-w-5xl flex flex-col justify-center p-4 mx-auto'>
+      <h3 className='ps-3 text-3xl my-2 text-start text-muted-foreground font-bold'>
+        Welcome to User Dashboard
+      </h3>
       {/* 1st section */}
-      <p className='mx-2'>
+      <p className='mx-3 mb-3 text-gray-600 dark:text-gray-400'>
         Copy your unique link and share with other to get feedback!
       </p>
-      <Separator className='my-5' />
       <div className=' w-full gap-3 flex items-center justify-between'>
-        <Input
+        <input
           type='text'
           value={userUrl}
-          readOnly
-          className='text-muted-foreground '
+          disabled
+          className='text-muted-foreground w-full rounded-sm py-1.5 bg-muted px-3 border-none outline-none'
         />
         <Button onClick={copyUrlToClipboard}>Copy URL</Button>
       </div>
+      <Separator className='my-5' />
       {/* 2nd section */}
-      <div className='mt-20'>
+      <div>
         <div className='flex items-center gap-2'>
           <Switch
             {...register}
@@ -181,14 +188,27 @@ const Dashboard = () => {
         </div>
         <Separator className='my-2' />
         <div className='grid grid-flow-row grid-cols-2'>
-          {messages &&
+          {messages && messages.length > 0 ? (
             messages.map((message) => (
               <MessageCard
                 key={message._id}
                 message={message}
                 onMessageDelete={onMessageDelete}
               />
-            ))}
+            ))
+          ) : (
+            <div className=' w-full mx-auto p-5'>
+              <Card className=' w-fit rounded-sm py-2 px-4 mb-2'>
+                <RotateCw
+                  onClick={getMessages}
+                  className={`text-muted-foreground ${
+                    fetchigMessage ? "animate-spin" : ""
+                  }`}
+                />
+              </Card>
+              <p>no messages to display</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -9,8 +9,9 @@ import dbConnet from "@/lib/dbConnect";
 export async function PATCH(request: NextRequest) {
   await dbConnet();
   const { isAcceptingMessages } = await request.json();
+  console.log(isAcceptingMessages);
   // woring body data
-  if (!isAcceptingMessages) {
+  if (isAcceptingMessages === null) {
     return NextResponse.json(
       { success: false, message: "Accepting Message is required" },
       { status: 400 }
