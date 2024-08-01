@@ -9,7 +9,7 @@ import dbConnet from "@/lib/dbConnect";
 
 type Params = {
   params: {
-    messageID: string;
+    messageid: string;
   };
 };
 
@@ -17,7 +17,9 @@ export async function DELETE(request: NextRequest, { params }: Params) {
   await dbConnet();
   const session = await getServerSession(authOptions);
   const user = session?.user as User;
-  const messageID = params.messageID;
+  const messageID = params.messageid;
+
+  console.log(params);
 
   if (!session && !user) {
     return NextResponse.json(

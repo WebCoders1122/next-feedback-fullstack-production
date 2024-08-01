@@ -24,36 +24,37 @@ type Props = {
 };
 const MessageCard = ({ message, onMessageDelete }: Props) => {
   const { toast } = useToast();
+  console.log(message);
 
   //function to delete the message from DB
   const handleMessageDelete = async () => {
-    onMessageDelete(message._id as string);
-    // try {
-    //   const response = await axios.delete<ApiResponseInterface>(
-    //     `/api/delete-message/${message._id}`
-    //   );
-    //   toast({
-    //     title: "Message Deleted",
-    //     description: response.data.message,
-    //     variant: "success",
-    //   });
-    // } catch (error) {
-    //   const axiosError = error as AxiosError<ApiResponseInterface>;
-    //   console.log(error);
-    //   toast({
-    //     title: "Error While Deleting Message",
-    //     description:
-    //       axiosError.response?.data.message || "Something went wrong",
-    //     variant: "destructive",
-    //   });
-    // }
+    onMessageDelete(message?._id as string);
+    try {
+      const response = await axios.delete<ApiResponseInterface>(
+        `/api/delete-message/${message._id}`
+      );
+      toast({
+        title: "Message Deleted",
+        description: response.data.message,
+        variant: "success",
+      });
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiResponseInterface>;
+      console.log(error);
+      toast({
+        title: "Error While Deleting Message",
+        description:
+          axiosError.response?.data.message || "Something went wrong",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
     <Card className='max-w-lg m-5'>
       <CardContent className='flex flex-col justify-start'>
         <div className='flex items-center justify-between gap-10'>
-          <h3 className='text-start pt-5 mb-2'>{message.content}</h3>
+          <h3 className='text-start pt-5 mb-2'>{message?.content}</h3>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button
@@ -82,7 +83,7 @@ const MessageCard = ({ message, onMessageDelete }: Props) => {
           </AlertDialog>
         </div>
         <span className='text-muted-foreground text-sm text-end'>
-          Created At: {message.createAt.toLocaleDateString()}
+          Created At: {new Date(message?.createAt).toLocaleDateString()}
         </span>
       </CardContent>
     </Card>

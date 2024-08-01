@@ -124,8 +124,15 @@ const Dashboard = () => {
       const response = await axios.get<ApiResponseInterface>(
         "/api/get-messages"
       );
-      const fetchedMessages = response.data.messages;
-      setMessages(fetchedMessages ?? []);
+      const fetchedMessages = response?.data?.messages[0]?.messages;
+      console.log(fetchedMessages);
+      !fetchedMessages
+        ? toast({
+            title: "Failed",
+            description: "No messages found",
+            variant: "destructive",
+          })
+        : setMessages(fetchedMessages);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponseInterface>;
       toast({
@@ -153,7 +160,6 @@ const Dashboard = () => {
     });
     setMessages(newMessages);
   };
-  console.log(acceptingMessageState);
   return (
     <div className='max-w-5xl flex flex-col justify-center p-4 mx-auto'>
       <h3 className='ps-3 text-3xl my-2 text-start text-muted-foreground font-bold'>
