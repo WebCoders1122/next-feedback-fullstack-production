@@ -41,7 +41,7 @@ const Navbar = () => {
   }, [darkMode]);
 
   return (
-    <nav className='bg-card w-full border-b py-8 shadow flex justify-between items-center px-20 mx-auto'>
+    <nav className='bg-card w-full border-b py-4 md:py-8 shadow flex flex-col gap-3 sm:flex-row justify-between items-center px-3 sm:px-8 md:px-14 lg:px-20 mx-auto'>
       <Link href='/'>
         <h2 className='font-bold text-2xl uppercase cursor-pointer'>
           Feedback App
@@ -50,51 +50,83 @@ const Navbar = () => {
       {session ? (
         <p className='text-xl font-medium'>Welcome {user.username}!</p>
       ) : null}
-      {session ? (
-        <div className='flex gap-5 items-center'>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                className='p-2'
-                variant='outline'
-                size='flexible'>
-                {darkMode ? (
-                  <SunMoon className='h-5 w-5' />
-                ) : (
-                  <Moon className='h-5 w-5' />
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className='w-36'
-              align='start'>
-              <DropdownMenuGroup>
-                <DropdownMenuItem onClick={() => setDarkMode(false)}>
-                  <SunMoon className='mr-2 h-4 w-4' />
-                  <span>Light</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setDarkMode(true)}>
-                  <Moon className='mr-2 h-4 w-4' />
-                  <span>Dark</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleSystemDarkMode}>
-                  <MonitorCog className='mr-2 h-4 w-4' />
-                  <span>System</span>
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <Button onClick={() => signOut()}>Sign Out</Button>
-        </div>
-      ) : (
-        <div>
-          <SunMoon />
-          <Link href='/login'>
-            <Button>Login</Button>
-          </Link>
-        </div>
-      )}
+      <div className='flex gap-5 items-center w-fit'>
+        {session ? (
+          <>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  className='p-2'
+                  variant='outline'
+                  size='flexible'>
+                  {darkMode ? (
+                    <SunMoon className='h-5 w-5' />
+                  ) : (
+                    <Moon className='h-5 w-5' />
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                className='w-36'
+                align='start'>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem onClick={() => setDarkMode(false)}>
+                    <SunMoon className='mr-2 h-4 w-4' />
+                    <span>Light</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setDarkMode(true)}>
+                    <Moon className='mr-2 h-4 w-4' />
+                    <span>Dark</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleSystemDarkMode}>
+                    <MonitorCog className='mr-2 h-4 w-4' />
+                    <span>System</span>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button onClick={() => signOut()}>Sign Out</Button>
+          </>
+        ) : (
+          <>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  className='p-2'
+                  variant='outline'
+                  size='flexible'>
+                  {darkMode ? (
+                    <SunMoon className='h-5 w-5' />
+                  ) : (
+                    <Moon className='h-5 w-5' />
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                className='w-36'
+                align='start'>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem onClick={() => setDarkMode(false)}>
+                    <SunMoon className='mr-2 h-4 w-4' />
+                    <span>Light</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setDarkMode(true)}>
+                    <Moon className='mr-2 h-4 w-4' />
+                    <span>Dark</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleSystemDarkMode}>
+                    <MonitorCog className='mr-2 h-4 w-4' />
+                    <span>System</span>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Link href='/login'>
+              <Button>Login</Button>
+            </Link>
+          </>
+        )}
+      </div>
     </nav>
   );
 };

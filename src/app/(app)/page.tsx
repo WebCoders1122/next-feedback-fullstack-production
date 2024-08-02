@@ -2,7 +2,12 @@
 import H2 from "@/components/ui/H2";
 import H3 from "@/components/ui/H3";
 import P from "@/components/ui/P";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -30,7 +35,7 @@ const HomePage = () => {
         </P>
       </div>
       {/* carousel section */}
-      <div className='mx-auto max-w-2xl'>
+      <div className='mx-auto max-w-2xl mt-16'>
         <Carousel
           opts={{
             align: "start",
@@ -38,31 +43,35 @@ const HomePage = () => {
           }}
           plugins={[Autoplay({ delay: 4000 })]}
           orientation='vertical'
-          className='w-full mt-20'>
-          <CarouselContent className='-mt-1 h-[170px]'>
+          className='w-[95%] mx-auto'>
+          <CarouselContent className='-mt-1 h-[270px] xsm:h-[210px] sm:h-[190px]'>
             {messagese.map((message, index) => (
               <CarouselItem
                 key={index}
                 className='pt-1 md:basis-1/2'>
-                <div className='p-1'>
-                  <Card>
-                    <CardContent className='flex flex-col items-center justify-center p-6'>
+                <div className='p-1 h-full'>
+                  <Card className='flex flex-col justify-between -gap-5 h-[250px] xsm:h-[190px] sm:h-[170px]'>
+                    <CardHeader>
                       <H3>{message.title}</H3>
-                      <p className='py-3'>{message.content}</p>
+                    </CardHeader>
+                    <CardContent className='flex flex-col items-center justify-evenly'>
+                      <p>{message.content}</p>
+                    </CardContent>
+                    <CardFooter className='flex flex-col justify-center'>
                       <p className='text-muted-foreground'>
                         {message.received}
                       </p>
-                    </CardContent>
+                    </CardFooter>
                   </Card>
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className='' />
+          <CarouselNext className='' />
         </Carousel>
       </div>
-      <footer className='absolute bottom-0 w-screen py-4 bg-card text-center text-muted-foreground'>
+      <footer className='absolute -bottom-14 sm:bottom-0 w-screen py-4 bg-card text-center text-muted-foreground'>
         © 2024 AnonyFeedback. All rights reserved.
       </footer>
     </div>
