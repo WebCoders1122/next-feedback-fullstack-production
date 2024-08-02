@@ -58,13 +58,13 @@ const MessageCard = ({ message, onMessageDelete }: Props) => {
           </h3>
         </div>
       </CardContent>
-      <CardFooter className='flex gap-5 items-center justify-center'>
+      <CardFooter className='flex gap-5 flex-col xsm:flex-row items-center justify-center'>
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button
-              className='px-2 w-fit'
+              className='px-2 w-full xsm:w-fit'
               variant='destructive'>
-              <Trash className='mr-2' /> Delete Message Permanently
+              <Trash className='mr-2' /> Delete Message
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
@@ -85,7 +85,7 @@ const MessageCard = ({ message, onMessageDelete }: Props) => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-        <span className='text-muted-foreground text-sm text-end'>
+        <span className='text-muted-foreground text-sm text-center'>
           Created At: {new Date(message?.createAt).toLocaleDateString()}
         </span>
       </CardFooter>

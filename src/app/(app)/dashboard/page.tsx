@@ -91,9 +91,11 @@ const Dashboard = () => {
           { isAcceptingMessages }
         );
         setValue("acceptingMessageState", isAcceptingMessages);
+        //TODO: check all toasts
         toast({
           title: "Success",
           description: response.data.message,
+          variant: "success",
         });
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponseInterface>;
@@ -124,7 +126,6 @@ const Dashboard = () => {
       const response = await axios.get<ApiResponseInterface>(
         "/api/get-messages"
       );
-      console.log(response);
       const fetchedMessages = response?.data?.messages;
       !fetchedMessages
         ? toast({
@@ -162,25 +163,30 @@ const Dashboard = () => {
   };
   return (
     <div className='max-w-5xl flex flex-col justify-center p-4 mx-auto'>
-      <h3 className='ps-3 text-3xl my-2 text-start text-muted-foreground font-bold'>
-        Welcome to User Dashboard
+      <h3 className='ps-3 text-2xl sm:text-3xl my-2 text-start text-muted-foreground font-bold'>
+        Welcome <span className='text-primary uppercase'>{user?.username}</span>{" "}
+        to Dashboard
       </h3>
       {/* 1st section */}
       <p className='mx-3 mb-3 text-gray-600 dark:text-gray-400'>
         Copy your unique link and share with other to get feedback!
       </p>
-      <div className=' w-full gap-3 flex items-center justify-between'>
+      <div className='w-full my-3 gap-3 flex flex-col xsm:flex-row items-center justify-between'>
         <input
           type='text'
           value={userUrl}
           disabled
           className='text-muted-foreground w-full rounded-sm py-1.5 bg-muted px-3 border-none outline-none'
         />
-        <Button onClick={copyUrlToClipboard}>Copy URL</Button>
+        <Button
+          className='w-full xsm:w-fit'
+          onClick={copyUrlToClipboard}>
+          Copy URL
+        </Button>
       </div>
       <Separator className='my-5' />
       {/* 2nd section */}
-      <div>
+      <div className='w-full'>
         <div className='flex items-center gap-2'>
           <Switch
             {...register}
@@ -193,7 +199,7 @@ const Dashboard = () => {
           </span>
         </div>
         <Separator className='my-2' />
-        <div className='grid grid-flow-row grid-cols-2 gap-4 mt-8'>
+        <div className='grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-4 mt-8 mx-auto w-fit'>
           {messages && messages.length > 0 ? (
             messages.map((message) => (
               <MessageCard

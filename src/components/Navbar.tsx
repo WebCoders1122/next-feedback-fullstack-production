@@ -47,9 +47,6 @@ const Navbar = () => {
           Feedback App
         </h2>
       </Link>
-      {session ? (
-        <p className='text-xl font-medium'>Welcome {user.username}!</p>
-      ) : null}
       <div className='flex gap-2 xsm:gap-5 items-center w-fit'>
         {session ? (
           <>
