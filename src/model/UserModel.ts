@@ -20,6 +20,10 @@ const userSchema: Schema<UserInterface> = new Schema({
     type: String,
     required: [true, "Email Required"],
     unique: true,
+    match: [
+      /^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/gim,
+      "Please enter a valid email address",
+    ],
   },
   password: {
     type: String,

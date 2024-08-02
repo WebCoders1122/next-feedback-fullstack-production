@@ -58,7 +58,7 @@ const MessageCard = ({ message, onMessageDelete }: Props) => {
           </h3>
         </div>
       </CardContent>
-      <CardFooter className='flex gap-5 flex-col xsm:flex-row items-center justify-center'>
+      <CardFooter className='flex py-3 bg-muted gap-3 flex-col xsm:flex-row items-center justify-around'>
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button
@@ -67,8 +67,8 @@ const MessageCard = ({ message, onMessageDelete }: Props) => {
               <Trash className='mr-2' /> Delete Message
             </Button>
           </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
+          <AlertDialogContent className='rounded-xl px-10 max-w-[90vw] sm:max-w-lg'>
+            <AlertDialogHeader className=''>
               <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
               <AlertDialogDescription>
                 This action cannot be undone. This will permanently delete your

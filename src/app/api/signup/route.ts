@@ -9,6 +9,7 @@ import getVerificationDetails from "@/helpers/getVerificationDetails";
 export async function POST(request: NextRequest) {
   await dbConnet();
   const { username, email, password } = await request.json();
+  console.log(username, email, password);
   try {
     const hashedPassword = await getHashedPass(password);
     const { verifyCode, expiryDate, createAt } = getVerificationDetails();
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
     if (user) {
       if (user.isVerified) {
         return NextResponse.json(
-          { error: "User already exists" },
+          { success: false, message: "User already exists" },
           { status: 400 }
         );
       } else {
@@ -36,6 +37,7 @@ export async function POST(request: NextRequest) {
           },
           { new: true }
         );
+        console.log("updates");
       }
     } else {
       const newUser = new User({
@@ -50,18 +52,24 @@ export async function POST(request: NextRequest) {
         messages: [],
       });
       const savedUser = await newUser.save();
+      console.log(savedUser, "saved user");
     }
     // to send email using sender
-    await sendVerificationEmail(username, email, verifyCode);
+    // await sendVerificationEmail(username, email, verifyCode);
     // sending response
-    return NextResponse.json({ message: "Signup Successful" }, { status: 201 });
+    return NextResponse.json(
+      { success: true, message: "Signup Successful" },
+      { status: 201 }
+    );
   } catch (error) {
     console.log(error, "user registeration failed due to error");
     return NextResponse.json(
-      { success: false, message: "user registeration failed due to error" },
+      {
+        success: false,
+        message: "user registeration failed due to error",
+        error: error,
+      },
       { status: 500 }
     );
   }
-
-  return NextResponse.json({ message: "Signup Successful" });
 }

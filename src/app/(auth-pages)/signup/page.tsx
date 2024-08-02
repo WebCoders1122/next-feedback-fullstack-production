@@ -150,7 +150,7 @@ const SignupPage = () => {
                           }}
                         />
                       </FormControl>
-                      {isCheckingUsernameValidation ? (
+                      {/* {isCheckingUsernameValidation ? (
                         <span className='text-sm text-gray-500'>
                           Checking username availability...
                         </span>
@@ -168,8 +168,8 @@ const SignupPage = () => {
                             );
                           })}
                         </p>
-                      )}
-                      <FormMessage />
+                      )} */}
+                      {/* <FormMessage /> */}
                     </FormItem>
                   )}
                 />

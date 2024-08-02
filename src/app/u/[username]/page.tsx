@@ -15,6 +15,9 @@ import { useToast } from "@/components/ui/use-toast";
 //vercel ai
 import { useCompletion } from "ai/react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { anonymusMessageSchema } from "@/schemas/anonymusMessageSchema";
 
 const Upage = () => {
   const username: string = window.location.pathname.split("/")[2];
@@ -37,7 +40,15 @@ const Upage = () => {
   const { toast } = useToast();
 
   //react hook forms
-  const { register, handleSubmit, watch, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<z.infer<typeof anonymusMessageSchema>>({
+    resolver: zodResolver(anonymusMessageSchema),
+  });
   const onSubmit = async (data: any) => {
     setisSendingMessage(true);
     const reqBody = {
@@ -88,7 +99,10 @@ const Upage = () => {
       <div className='my-5'>
         {/* Header section */}
         <div className='my-5'>
-          <H2>Send Anonymus Messages to {username}</H2>
+          <H2>
+            Send Anonymus Messages to{" "}
+            <span className='uppercase text-primary'>{username}</span>
+          </H2>
           <p className='text-gray-600 dark:text-gray-400 my-3'>
             Type your message below to send @{username} anonymusly...
           </p>
@@ -98,18 +112,21 @@ const Upage = () => {
           onSubmit={handleSubmit(onSubmit)}
           className='grid w-full gap-2'>
           <Textarea
+            className='mb-2'
             rows={5}
             {...register("textAreaValue")}
             value={textAreaValue}
             placeholder='Type your message here.'
           />
-          <p className='text-gray-600 dark:text-gray-400 mb-2 text-sm'>
-            Your message should be at least 10 characters long.
-          </p>
+          {errors.textAreaValue && (
+            <span className='text-red-500 text-sm'>
+              {errors.textAreaValue.message}
+            </span>
+          )}
           <Button
             type='submit'
             disabled={isSendingMessage}
-            className='w-fit'>
+            className='w-full xsm:w-fit'>
             {isSendingMessage ? (
               <>
                 <LoaderCircle className='animate-spin mr-2' />
@@ -121,9 +138,12 @@ const Upage = () => {
           </Button>
         </form>
       </div>
+
+      <Separator className='border-b' />
       {/* section 2 */}
       <div className='my-5'>
         <Button
+          className='w-full xsm:w-fit'
           disabled={isLoadingAIMessages}
           onClick={generateAIMessages}>
           {isLoadingAIMessages ? (
@@ -148,7 +168,12 @@ const Upage = () => {
                 <Button
                   key={index + "ai-message"}
                   onClick={(event) => {
-                    setValue("textAreaValue", event.currentTarget.textContent);
+                    setValue("textAreaValue", event.currentTarget.textContent!);
+                    window.scrollTo({
+                      top: 0,
+                      left: 0,
+                      behavior: "smooth",
+                    });
                   }}
                   size='flexible'
                   variant='outline'
@@ -173,8 +198,10 @@ const Upage = () => {
       <div className='text-center flex flex-col gap-2 items-center'>
         <Separator />
         <p>Get Anonymus Feedback for you!</p>
-        <Link href='/signup'>
-          <Button>Create Account</Button>
+        <Link
+          href='/signup'
+          className="w-full xsm:w-fit'">
+          <Button className='w-full xsm:w-fit'>Create Account</Button>
         </Link>
       </div>
     </div>
