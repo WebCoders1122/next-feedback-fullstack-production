@@ -26,31 +26,29 @@ const Navbar = () => {
 
   //handle darkmode
   const [darkMode, setDarkMode] = useState(false);
-  const [systemDarkMode, setSystemDarkMode] = useState(true);
-
-  //this is to get device dark or light mode
-  const systemMode = window.matchMedia("(prefers-color-scheme: dark)");
 
   const handleDarkMode = () => {
-    if (systemDarkMode) {
-      darkMode == true ||
-      (darkMode == false &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ? document.documentElement.classList.add("dark")
-        : document.documentElement.classList.remove("dark");
-    } else {
-      darkMode == true
-        ? document.documentElement.classList.add("dark")
-        : document.documentElement.classList.remove("dark");
-    }
+    darkMode == true
+      ? document.documentElement.classList.add("dark")
+      : document.documentElement.classList.remove("dark");
   };
-  //to change system darkmode automatically
-  systemMode.addEventListener("change", handleDarkMode);
+  const handleSystemDarkMode = () => {
+    console.log("sss");
+    //this is to get device dark or light mode
+    const systemMode = window.matchMedia("(prefers-color-scheme: dark)");
+    //to change system darkmode automatically
+    systemMode.addEventListener("change", (e) => {
+      e.matches ? setDarkMode(true) : setDarkMode(false);
+    });
+  };
 
   //to enable system darkmode
   useEffect(() => {
     handleDarkMode();
-  }, [darkMode, systemDarkMode]);
+  }, [darkMode]);
+
+  // add two buttons for switching dark and light mode
+  // add one button for system mode and call system function in its click
 
   return (
     <nav className='bg-card w-full border-b py-8 shadow flex justify-between items-center px-20 mx-auto'>
@@ -70,9 +68,7 @@ const Navbar = () => {
                 className='p-2'
                 variant='outline'
                 size='flexible'>
-                {systemDarkMode ? (
-                  <MonitorCog className='h-5 w-5' />
-                ) : darkMode ? (
+                {darkMode ? (
                   <SunMoon className='h-5 w-5' />
                 ) : (
                   <Moon className='h-5 w-5' />
@@ -83,27 +79,15 @@ const Navbar = () => {
               className='w-36'
               align='start'>
               <DropdownMenuGroup>
-                <DropdownMenuItem
-                  onClick={() => {
-                    setDarkMode(true);
-                    setSystemDarkMode(false);
-                  }}>
+                <DropdownMenuItem onClick={() => setDarkMode(true)}>
                   <Moon className='mr-2 h-4 w-4' />
                   <span>Dark</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    setDarkMode(false);
-                    setSystemDarkMode(false);
-                  }}>
+                <DropdownMenuItem onClick={() => setDarkMode(false)}>
                   <SunMoon className='mr-2 h-4 w-4' />
                   <span>Light</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    setSystemDarkMode(true);
-                    setDarkMode(false);
-                  }}>
+                <DropdownMenuItem onClick={handleSystemDarkMode}>
                   <MonitorCog className='mr-2 h-4 w-4' />
                   <span>System</span>
                 </DropdownMenuItem>
