@@ -119,8 +119,8 @@ const SignupPage = () => {
     checkUsernameValidation();
   }, [username]);
   return (
-    <div className='bg-background sm:min-h-screen flex justify-center items-center'>
-      <div className='w-full max-w-screen sm:max-w-md'>
+    <div className='bg-background sm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
+      <div>
         {/* heading div started */}
         <Card>
           <CardHeader>
