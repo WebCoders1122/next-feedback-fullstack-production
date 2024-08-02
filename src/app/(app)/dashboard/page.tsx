@@ -62,8 +62,6 @@ const Dashboard = () => {
   const baseUrl = window.location.origin!;
   const userUrl = `${baseUrl}/u/${user?.username}`;
 
-  //TODO: remove all un necessory comments
-
   //getting isAcceptingMessage sate from server
   const getIsAcceptingMessages = async () => {
     setIsAcceptMessagesLoading(true);
@@ -123,11 +121,11 @@ const Dashboard = () => {
   const getMessages = useCallback(async () => {
     setIsFetchigMessage(true);
     try {
-      const response = (await axios.get(
+      const response = await axios.get<ApiResponseInterface>(
         "/api/get-messages"
-      )) as ApiResponseInterface;
-      //TODO: resolve this error
-      const fetchedMessages = response?.data?.messages[0]?.messages;
+      );
+      console.log(response);
+      const fetchedMessages = response?.data?.messages;
       !fetchedMessages
         ? toast({
             title: "Failed",

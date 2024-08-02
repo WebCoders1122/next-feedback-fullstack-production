@@ -19,7 +19,6 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <SessionProviderContext>
-        {/* //TODO add darkmode in app */}
         <body className={(cn(inter.className), "")}>
           {children}
           <Toaster />
@@ -28,4 +27,3 @@ export default function RootLayout({
     </html>
   );
 }
-//TODO: make all dark and light mode colors accurate

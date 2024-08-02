@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
   try {
     //getting all messages of user by userID
     //TODO: "user" recieves and array here but in teacher's code it is userobject. verify at the end of series
-    const user = await UserModel.aggregate([
+    const userMessageData = await UserModel.aggregate([
       //finds user
       { $match: { _id: userObjectId } },
       //get all messeges and make seperate objects with user found
@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
       {
         success: true,
         message: "Messages Found from DB",
-        messages: user,
+        messages: userMessageData[0].messages,
       },
       { status: 200 }
     );

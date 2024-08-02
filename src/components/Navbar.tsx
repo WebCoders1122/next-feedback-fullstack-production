@@ -1,24 +1,19 @@
 "use client";
 
+import { MonitorCog, Moon, SunMoon } from "lucide-react";
 import { User } from "next-auth";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { MonitorCog, Moon, SunMoon } from "lucide-react";
 
-import { Card } from "./ui/card";
-import { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -33,10 +28,8 @@ const Navbar = () => {
       : document.documentElement.classList.remove("dark");
   };
   const handleSystemDarkMode = () => {
-    console.log("sss");
-    //this is to get device dark or light mode
     const systemMode = window.matchMedia("(prefers-color-scheme: dark)");
-    //to change system darkmode automatically
+    systemMode.matches ? setDarkMode(true) : setDarkMode(false);
     systemMode.addEventListener("change", (e) => {
       e.matches ? setDarkMode(true) : setDarkMode(false);
     });
@@ -46,9 +39,6 @@ const Navbar = () => {
   useEffect(() => {
     handleDarkMode();
   }, [darkMode]);
-
-  // add two buttons for switching dark and light mode
-  // add one button for system mode and call system function in its click
 
   return (
     <nav className='bg-card w-full border-b py-8 shadow flex justify-between items-center px-20 mx-auto'>
@@ -79,13 +69,13 @@ const Navbar = () => {
               className='w-36'
               align='start'>
               <DropdownMenuGroup>
-                <DropdownMenuItem onClick={() => setDarkMode(true)}>
-                  <Moon className='mr-2 h-4 w-4' />
-                  <span>Dark</span>
-                </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setDarkMode(false)}>
                   <SunMoon className='mr-2 h-4 w-4' />
                   <span>Light</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setDarkMode(true)}>
+                  <Moon className='mr-2 h-4 w-4' />
+                  <span>Dark</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleSystemDarkMode}>
                   <MonitorCog className='mr-2 h-4 w-4' />
