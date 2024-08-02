@@ -56,7 +56,6 @@ export async function POST(request: NextRequest) {
     // sending response
     return NextResponse.json({ message: "Signup Successful" }, { status: 201 });
   } catch (error) {
-    console.error("user registeration failed due to error", error);
     console.log(error, "user registeration failed due to error");
     return NextResponse.json(
       { success: false, message: "user registeration failed due to error" },
@@ -64,6 +63,5 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  //   console.log(username, email, password);
   return NextResponse.json({ message: "Signup Successful" });
 }

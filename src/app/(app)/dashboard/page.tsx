@@ -53,8 +53,6 @@ const Dashboard = () => {
   const { data: session } = useSession();
   const user = session?.user as User;
 
-  console.log(session);
-
   //for make react-hook-form instance
   const form = useForm();
   const { register, setValue, watch, handleSubmit } = form;
@@ -63,6 +61,8 @@ const Dashboard = () => {
   //for making url
   const baseUrl = window.location.origin!;
   const userUrl = `${baseUrl}/u/${user?.username}`;
+
+  //TODO: remove all un necessory comments
 
   //getting isAcceptingMessage sate from server
   const getIsAcceptingMessages = async () => {
@@ -123,9 +123,10 @@ const Dashboard = () => {
   const getMessages = useCallback(async () => {
     setIsFetchigMessage(true);
     try {
-      const response = await axios.get<ApiResponseInterface>(
+      const response = (await axios.get(
         "/api/get-messages"
-      );
+      )) as ApiResponseInterface;
+      //TODO: resolve this error
       const fetchedMessages = response?.data?.messages[0]?.messages;
       !fetchedMessages
         ? toast({

@@ -22,10 +22,7 @@ const Upage = () => {
   const [isSendingMessage, setisSendingMessage] = useState(false);
 
   // to trun ai stream into text
-  const initialCompletion = `Hi there! I hope you don't mind me reaching out anonymously. I've
-  been wanting to chat with you for a while. || Hey, it's me - your secret admirer. I thought it might be fun to
-  have an anonymous conversation. What's on your mind? || Hello! I know this is a bit unconventional, but I wanted to
-  introduce myself anonymously.`;
+  const initialCompletion = `Hi there! I hope you don't mind me reaching out anonymously. I've been wanting to chat with you for a while. || Hey, it's me - your secret admirer. I thought it might be fun to have an anonymous conversation. What's on your mind? || Hello! I know this is a bit unconventional but I wanted to introduce myself anonymously.`;
   const {
     complete,
     completion,
@@ -57,7 +54,7 @@ const Upage = () => {
         description: response.data.message,
         variant: "success",
       });
-      console.log(response.data);
+      setValue("textAreaValue", "");
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponseInterface>;
       return toast({

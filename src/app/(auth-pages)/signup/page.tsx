@@ -73,7 +73,6 @@ const SignupPage = () => {
         title: response.data.message,
         variant: "success",
       });
-      console.log(response);
       setTimeout(() => {
         router.push(`/verify/${username}`);
       }, 500);

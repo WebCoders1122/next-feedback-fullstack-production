@@ -9,7 +9,6 @@ export default async function sendVerificationEmail(
   email: string,
   verifyCode: string
 ): Promise<ApiResponseInterface> {
-  console.log("send email");
   try {
     const emailResponse = await resend.emails.send({
       from: "onboarding@resend.dev",
@@ -17,7 +16,6 @@ export default async function sendVerificationEmail(
       subject: "Feedback App | Verify Your Email Address",
       react: verifyEmailTempelate({ username, verifyCode }),
     });
-    console.log(emailResponse, "email response");
     return {
       success: true,
       message: "Verification email sent successfully",

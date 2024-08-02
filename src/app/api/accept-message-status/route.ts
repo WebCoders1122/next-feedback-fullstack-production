@@ -9,7 +9,6 @@ import dbConnet from "@/lib/dbConnect";
 export async function PATCH(request: NextRequest) {
   await dbConnet();
   const { isAcceptingMessages } = await request.json();
-  console.log(isAcceptingMessages);
   // woring body data
   if (isAcceptingMessages === null) {
     return NextResponse.json(

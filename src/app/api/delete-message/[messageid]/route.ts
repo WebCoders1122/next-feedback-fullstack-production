@@ -31,6 +31,7 @@ export async function DELETE(request: NextRequest, { params }: Params) {
       { $pull: { messages: { _id: messageID } } },
       { new: true }
     );
+    if (!updateUser) return;
     if (updateUser.modifiedCount === 0) {
       return NextResponse.json(
         {

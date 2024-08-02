@@ -52,15 +52,11 @@ export async function PATCH(request: NextRequest) {
     const isNotExpiredCode =
       new Date(userToVerify.verifyCodeExpiry as Date) > new Date(Date.now());
     if (!isCorrectCode) {
-      console.log("code incorect ");
-
       return NextResponse.json(
         { success: false, message: "Invalid Verification Code" },
         { status: 400 }
       );
     } else if (!isNotExpiredCode) {
-      console.log("code expired ");
-
       //TODO: make a logic to resend code instead for signing up again
       return NextResponse.json(
         {
@@ -70,13 +66,11 @@ export async function PATCH(request: NextRequest) {
         { status: 400 }
       );
     }
-    console.log("valid code and user");
 
     userToVerify.isVerified = true;
     userToVerify.verifyCode = undefined;
     userToVerify.verifyCodeExpiry = undefined;
     await userToVerify.save();
-    console.log("user verified", userToVerify);
     return NextResponse.json(
       {
         success: true,
