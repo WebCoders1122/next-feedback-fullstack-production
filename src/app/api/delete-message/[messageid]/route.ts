@@ -19,8 +19,6 @@ export async function DELETE(request: NextRequest, { params }: Params) {
   const user = session?.user as User;
   const messageID = params.messageid;
 
-  console.log(params);
-
   if (!session && !user) {
     return NextResponse.json(
       { success: false, message: "Unauthorized" },

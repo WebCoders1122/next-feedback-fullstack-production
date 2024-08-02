@@ -43,7 +43,7 @@ const initialState = [
 const Dashboard = () => {
   //state for isAcceptMessagesLoading
   const [isAcceptMessagesLoading, setIsAcceptMessagesLoading] = useState(false);
-  const [fetchigMessage, setFetchigMessage] = useState(false);
+  const [isFetchigMessage, setIsFetchigMessage] = useState(false);
   const [messages, setMessages] = useState<MessageInterface[]>([]);
 
   //toast
@@ -52,6 +52,8 @@ const Dashboard = () => {
   //session
   const { data: session } = useSession();
   const user = session?.user as User;
+
+  console.log(session);
 
   //for make react-hook-form instance
   const form = useForm();
@@ -119,13 +121,12 @@ const Dashboard = () => {
 
   // getting messages from DB
   const getMessages = useCallback(async () => {
-    setFetchigMessage(true);
+    setIsFetchigMessage(true);
     try {
       const response = await axios.get<ApiResponseInterface>(
         "/api/get-messages"
       );
       const fetchedMessages = response?.data?.messages[0]?.messages;
-      console.log(fetchedMessages);
       !fetchedMessages
         ? toast({
             title: "Failed",
@@ -141,17 +142,17 @@ const Dashboard = () => {
         variant: "destructive",
       });
     } finally {
-      setFetchigMessage(false);
+      setIsFetchigMessage(false);
     }
   }, []);
 
   // initializing dashboard
   useEffect(() => {
     getIsAcceptingMessages();
-  }, [acceptingMessageState]);
-  useEffect(() => {
     getMessages();
-  }, [setMessages]);
+  }, [session]);
+  // useEffect(() => {
+  // }, [setMessages]);
 
   //Optimistic UI stretegy for remving from UI
   const onMessageDelete = (messageID: string) => {
@@ -193,7 +194,7 @@ const Dashboard = () => {
           </span>
         </div>
         <Separator className='my-2' />
-        <div className='grid grid-flow-row grid-cols-2'>
+        <div className='grid grid-flow-row grid-cols-2 gap-4 mt-8'>
           {messages && messages.length > 0 ? (
             messages.map((message) => (
               <MessageCard
@@ -208,7 +209,7 @@ const Dashboard = () => {
                 <RotateCw
                   onClick={getMessages}
                   className={`text-muted-foreground ${
-                    fetchigMessage ? "animate-spin" : ""
+                    isFetchigMessage ? "animate-spin" : ""
                   }`}
                 />
               </Card>

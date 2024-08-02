@@ -12,11 +12,29 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ApiResponseInterface } from "../../../../types";
 import { useToast } from "@/components/ui/use-toast";
+//vercel ai
+import { useCompletion } from "ai/react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Upage = () => {
   const username: string = window.location.pathname.split("/")[2];
   //states
   const [isSendingMessage, setisSendingMessage] = useState(false);
+
+  // to trun ai stream into text
+  const initialCompletion = `Hi there! I hope you don't mind me reaching out anonymously. I've
+  been wanting to chat with you for a while. || Hey, it's me - your secret admirer. I thought it might be fun to
+  have an anonymous conversation. What's on your mind? || Hello! I know this is a bit unconventional, but I wanted to
+  introduce myself anonymously.`;
+  const {
+    complete,
+    completion,
+    error,
+    isLoading: isLoadingAIMessages,
+  } = useCompletion({
+    api: "/api/ai-messages",
+    initialCompletion: initialCompletion,
+  });
 
   //toast
   const { toast } = useToast();
@@ -53,10 +71,24 @@ const Upage = () => {
   };
   const textAreaValue = watch("textAreaValue");
 
+  // //to generate ai messaes
+  const generateAIMessages = () => {
+    try {
+      complete("");
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Failed",
+        description: "Failed to generate messages",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
-    <div className='min-h-screen w-screen p-5 flex flex-col justify-between max-w-5xl mx-auto'>
+    <div className='p-5 max-w-5xl mx-auto'>
       {/* section 1 */}
-      <div>
+      <div className='my-5'>
         {/* Header section */}
         <div className='my-5'>
           <H2>Send Anonymus Messages to {username}</H2>
@@ -69,6 +101,7 @@ const Upage = () => {
           onSubmit={handleSubmit(onSubmit)}
           className='grid w-full gap-2'>
           <Textarea
+            rows={5}
             {...register("textAreaValue")}
             value={textAreaValue}
             placeholder='Type your message here.'
@@ -92,46 +125,50 @@ const Upage = () => {
         </form>
       </div>
       {/* section 2 */}
-      <div>
-        <Button>Suggest Messages with AI</Button>
+      <div className='my-5'>
+        <Button
+          disabled={isLoadingAIMessages}
+          onClick={generateAIMessages}>
+          {isLoadingAIMessages ? (
+            <>
+              <LoaderCircle className='animate-spin mr-2' />
+              <span>Generating Messages...</span>
+            </>
+          ) : (
+            "Suggest Messages with AI"
+          )}
+        </Button>
         <p className='text-gray-600 dark:text-gray-400 my-3'>
           Select Any Message below.
         </p>
-        <Card>
+        <Card className='my-5'>
           <CardHeader>
             <span className='text-xl'>Messages</span>
           </CardHeader>
           <CardContent className='flex flex-col items-center gap-3'>
-            <Button
-              onClick={(event) => {
-                setValue("textAreaValue", event.currentTarget.textContent);
-              }}
-              size='flexible'
-              variant='outline'
-              className='w-full text-wrap py-1'>
-              Hi there! I hope you don't mind me reaching out anonymously. I've
-              been wanting to chat with you for a while.
-            </Button>
-            <Button
-              onClick={(event) => {
-                setValue("textAreaValue", event.currentTarget.textContent);
-              }}
-              className='w-full text-wrap py-1'
-              variant='outline'
-              size='flexible'>
-              Hey, it's me - your secret admirer. I thought it might be fun to
-              have an anonymous conversation. What's on your mind?
-            </Button>
-            <Button
-              onClick={(event) => {
-                setValue("textAreaValue", event.currentTarget.textContent);
-              }}
-              className='w-full text-wrap py-1'
-              variant='outline'
-              size='flexible'>
-              Hello! I know this is a bit unconventional, but I wanted to
-              introduce myself anonymously.
-            </Button>
+            {completion ? (
+              completion.split("||").map((message, index) => (
+                <Button
+                  key={index + "ai-message"}
+                  onClick={(event) => {
+                    setValue("textAreaValue", event.currentTarget.textContent);
+                  }}
+                  size='flexible'
+                  variant='outline'
+                  className='w-full text-wrap'>
+                  {message.trim()}
+                </Button>
+              ))
+            ) : (
+              <>
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    className='w-full h-12'
+                  />
+                ))}
+              </>
+            )}
           </CardContent>
         </Card>
       </div>
