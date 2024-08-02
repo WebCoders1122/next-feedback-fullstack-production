@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
       console.log(savedUser, "saved user");
     }
     // to send email using sender
-    // await sendVerificationEmail(username, email, verifyCode);
+    await sendVerificationEmail(username, email, verifyCode);
     // sending response
     return NextResponse.json(
       { success: true, message: "Signup Successful" },

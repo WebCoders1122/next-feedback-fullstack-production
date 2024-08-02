@@ -12,6 +12,8 @@ import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ApiResponseInterface, MessageInterface } from "../../../../types";
+import { Paragraph } from "@/components/ui/Paragraph";
+import { Heading } from "@/components/ui/Heading";
 
 const initialState = [
   {
@@ -88,7 +90,6 @@ const Dashboard = () => {
           { isAcceptingMessages }
         );
         setValue("acceptingMessageState", isAcceptingMessages);
-        //TODO: check all toasts
         toast({
           title: "Success",
           description: response.data.message,
@@ -160,14 +161,17 @@ const Dashboard = () => {
   };
   return (
     <div className='max-w-5xl flex flex-col justify-center p-4 mx-auto'>
-      <h3 className='ps-3 text-2xl sm:text-3xl my-2 text-start text-muted-foreground font-bold'>
-        Welcome <span className='text-primary uppercase'>{user?.username}</span>{" "}
-        to Dashboard
-      </h3>
+      <Heading variant='darkMuted'>
+        Welcome{" "}
+        <span className='text-primary uppercase mx-1'>{user?.username}</span> to
+        Dashboard
+      </Heading>
       {/* 1st section */}
-      <p className='mx-3 mb-3 text-gray-600 dark:text-gray-400'>
+      <Paragraph
+        variant='darkMuted'
+        className='mt-3'>
         Copy your unique link and share with other to get feedback!
-      </p>
+      </Paragraph>
       <div className='w-full my-3 gap-3 flex flex-col xsm:flex-row items-center justify-between'>
         <input
           type='text'
@@ -196,15 +200,17 @@ const Dashboard = () => {
           </span>
         </div>
         <Separator className='my-2' />
-        <div className='grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-4 mt-8 mx-auto w-fit'>
+        <>
           {messages && messages.length > 0 ? (
-            messages.map((message) => (
-              <MessageCard
-                key={message._id}
-                message={message}
-                onMessageDelete={onMessageDelete}
-              />
-            ))
+            <div className='grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-4 mt-8 mx-auto w-fit'>
+              {messages.map((message) => (
+                <MessageCard
+                  key={message._id}
+                  message={message}
+                  onMessageDelete={onMessageDelete}
+                />
+              ))}
+            </div>
           ) : (
             <div className=' w-full mx-auto p-5'>
               <Card className=' w-fit rounded-sm py-2 px-4 mb-2'>
@@ -215,14 +221,13 @@ const Dashboard = () => {
                   }`}
                 />
               </Card>
-              <p>no messages to display</p>
+              <Paragraph>no messages to display</Paragraph>
             </div>
           )}
-        </div>
+        </>
       </div>
     </div>
   );
 };
 export default Dashboard;
-
-//TODO: make all pages of website responsive
+// TODO: error while getching empty message array from DB => it should be not found

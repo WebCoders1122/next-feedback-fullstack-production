@@ -9,26 +9,25 @@ import mongoose from "mongoose";
 export async function GET(request: NextRequest) {
   await dbConnet();
   //   getting server session and sending response if not found
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json(
-      { success: false, message: "You are not Authorized to get messages" },
-      { status: 401 }
-    );
-  }
+  // const session = await getServerSession(authOptions);
+  // if (!session) {
+  //   return NextResponse.json(
+  //     { success: false, message: "You are not Authorized to get messages" },
+  //     { status: 401 }
+  //   );
+  // }
   //getting user id from session and sending response if not found
-  const userID = session.user?._id;
-  if (!userID) {
-    return NextResponse.json(
-      { success: false, message: "Unauthorized UserID" },
-      { status: 401 }
-    );
-  }
+  // const userID = session.user?._id;
+  // if (!userID) {
+  //   return NextResponse.json(
+  //     { success: false, message: "Unauthorized UserID" },
+  //     { status: 401 }
+  //   );
+  // }
   //Converting string id to mongoose objectId
-  const userObjectId = new mongoose.Types.ObjectId(userID);
+  const userObjectId = new mongoose.Types.ObjectId("66acfc113e9f10d5df03b76c");
   try {
     //getting all messages of user by userID
-    //TODO: "user" recieves and array here but in teacher's code it is userobject. verify at the end of series
     const userMessageData = await UserModel.aggregate([
       //finds user
       { $match: { _id: userObjectId } },
@@ -53,8 +52,13 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
-      { success: false, message: "Error in getting messages from DB" },
+      {
+        error: error,
+        success: false,
+        message: "Error in getting messages from DB",
+      },
       { status: 500 }
     );
   }

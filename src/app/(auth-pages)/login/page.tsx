@@ -6,8 +6,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 //shadcn imports
-import H2 from "@/components/ui/H2";
-import P from "@/components/ui/P";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -31,6 +29,8 @@ import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Heading } from "@/components/ui/Heading";
+import { Paragraph } from "@/components/ui/Paragraph";
 
 const LoginPage = () => {
   // for button disaling and animation
@@ -71,8 +71,7 @@ const LoginPage = () => {
       title: "Logged in Successfully",
       variant: "success",
     });
-    router.push("/dashboard");
-    //TODO: remove this timout and push ==> replace
+    router.replace("/dashboard");
     setIsLoggingIn(false);
   };
 
@@ -82,8 +81,8 @@ const LoginPage = () => {
         {/* heading div started */}
         <Card>
           <CardHeader>
-            <H2>Login to Feedback App</H2>
-            <P className='text-center'>Pleae Login to continue</P>
+            <Heading>Login to Feedback App</Heading>
+            <Paragraph className='ms-2'>Pleae Login to continue</Paragraph>
           </CardHeader>
           <CardContent>
             {/* form started */}

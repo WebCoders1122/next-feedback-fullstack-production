@@ -1,7 +1,5 @@
 "use client";
-import H2 from "@/components/ui/H2";
-import H3 from "@/components/ui/H3";
-import P from "@/components/ui/P";
+import { Heading } from "@/components/ui/Heading";
 import {
   Card,
   CardContent,
@@ -16,9 +14,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+import { Paragraph } from "@/components/ui/Paragraph";
 import messagese from "@/messages.json";
-import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
 
 const HomePage = () => {
   const [emblaRef] = useEmblaCarousel({ loop: true }, [
@@ -28,11 +27,13 @@ const HomePage = () => {
     <div>
       {/* heading section */}
       <div className='max-w-5xl mx-auto text-center my-8'>
-        <H2>Welcome to Anonymus Feedback App</H2>
-        <P className='text-muted-foreground text-lg'>
+        <Heading size='h1'>Welcome to Anonymus Feedback App</Heading>
+        <Paragraph
+          variant={"darkMuted"}
+          className='pt-5'>
           Your anonymous opinions matter—help us improve by sharing your honest
           feedback.
-        </P>
+        </Paragraph>
       </div>
       {/* carousel section */}
       <div className='mx-auto max-w-2xl mt-16'>
@@ -44,7 +45,7 @@ const HomePage = () => {
           plugins={[Autoplay({ delay: 4000 })]}
           orientation='vertical'
           className='w-[95%] mx-auto'>
-          <CarouselContent className='-mt-1 h-[270px] xsm:h-[210px] sm:h-[190px]'>
+          <CarouselContent className='-mt-1 h-[270px] xsm:h-[210px] sm:h-[185px]'>
             {messagese.map((message, index) => (
               <CarouselItem
                 key={index}
@@ -52,15 +53,19 @@ const HomePage = () => {
                 <div className='p-1 h-full'>
                   <Card className='flex flex-col justify-between -gap-5 h-[250px] xsm:h-[190px] sm:h-[170px]'>
                     <CardHeader>
-                      <H3>{message.title}</H3>
+                      <Heading
+                        size={"h3"}
+                        className='text-center'>
+                        {message.title}
+                      </Heading>
                     </CardHeader>
                     <CardContent className='flex flex-col items-center justify-evenly'>
-                      <p>{message.content}</p>
+                      <Paragraph>{message.content}</Paragraph>
                     </CardContent>
                     <CardFooter className='flex flex-col justify-center'>
-                      <p className='text-muted-foreground'>
+                      <Paragraph variant='darkMuted'>
                         {message.received}
-                      </p>
+                      </Paragraph>
                     </CardFooter>
                   </Card>
                 </div>
@@ -71,8 +76,10 @@ const HomePage = () => {
           <CarouselNext className='' />
         </Carousel>
       </div>
-      <footer className='absolute -bottom-14 sm:bottom-0 w-screen py-4 bg-card text-center text-muted-foreground'>
-        © 2024 AnonyFeedback. All rights reserved.
+      <footer className='absolute -bottom-14 sm:bottom-0 w-screen py-4 bg-card text-center'>
+        <Paragraph variant='darkMuted'>
+          © 2024 AnonyFeedback. All rights reserved.
+        </Paragraph>
       </footer>
     </div>
   );

@@ -47,7 +47,7 @@ const Navbar = () => {
           Feedback App
         </h2>
       </Link>
-      <div className='flex gap-2 xsm:gap-5 items-center w-fit'>
+      <div className='flex gap-2 items-center w-fit'>
         {session ? (
           <>
             <DropdownMenu>
@@ -120,6 +120,9 @@ const Navbar = () => {
             </DropdownMenu>
             <Link href='/login'>
               <Button>Login</Button>
+            </Link>
+            <Link href='/signup'>
+              <Button>Signup</Button>
             </Link>
           </>
         )}

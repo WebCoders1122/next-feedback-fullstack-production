@@ -1,5 +1,5 @@
 "use client";
-import H2 from "@/components/ui/H2";
+import { Heading } from "@/components/ui/Heading";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,15 +9,16 @@ import { LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 //react hook forms
+import { useToast } from "@/components/ui/use-toast";
 import { useForm } from "react-hook-form";
 import { ApiResponseInterface } from "../../../../types";
-import { useToast } from "@/components/ui/use-toast";
 //vercel ai
-import { useCompletion } from "ai/react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { anonymusMessageSchema } from "@/schemas/anonymusMessageSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useCompletion } from "ai/react";
+import { z } from "zod";
+import { Paragraph } from "@/components/ui/Paragraph";
 
 const Upage = () => {
   const username: string = window.location.pathname.split("/")[2];
@@ -99,10 +100,10 @@ const Upage = () => {
       <div className='my-5'>
         {/* Header section */}
         <div className='my-5'>
-          <H2>
+          <Heading>
             Send Anonymus Messages to{" "}
             <span className='uppercase text-primary'>{username}</span>
-          </H2>
+          </Heading>
           <p className='text-gray-600 dark:text-gray-400 my-3'>
             Type your message below to send @{username} anonymusly...
           </p>
@@ -197,7 +198,7 @@ const Upage = () => {
       {/* create account section */}
       <div className='text-center flex flex-col gap-2 items-center'>
         <Separator />
-        <p>Get Anonymus Feedback for you!</p>
+        <Paragraph>Get Anonymus Feedback for you!</Paragraph>
         <Link
           href='/signup'
           className="w-full xsm:w-fit'">

@@ -9,8 +9,7 @@ import { useForm } from "react-hook-form";
 import { useDebounceCallback } from "usehooks-ts";
 import { z } from "zod";
 //shadcn imports
-import H2 from "@/components/ui/H2";
-import P from "@/components/ui/P";
+import { Heading } from "@/components/ui/Heading";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -33,6 +32,7 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ApiResponseInterface } from "../../../../types";
+import { Paragraph } from "@/components/ui/Paragraph";
 
 const SignupPage = () => {
   //react states to manege username, isCheckingUsernameValidation, isLoadingValidationMessage, validationMessage, isvalidated, isRegistering
@@ -70,20 +70,20 @@ const SignupPage = () => {
         values
       );
       toast({
-        title: response.data.message,
+        title: "Success",
+        description: response.data.message,
         variant: "success",
       });
-      setTimeout(() => {
-        router.push(`/verify/${username}`);
-      }, 500);
-      //TODO: remove this timout and push ==> replace
+      router.replace(`/verify/${username}`);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponseInterface>;
       console.log(error);
       const errorMessage =
         axiosError.response?.data.message ?? "Registeration Failed";
       toast({
-        title: errorMessage,
+        title: "Failed",
+        description: errorMessage,
+        variant: "destructive",
       });
     } finally {
       setIsRegistering(false);
@@ -124,9 +124,8 @@ const SignupPage = () => {
         {/* heading div started */}
         <Card>
           <CardHeader>
-            {/* TODO: try to adjust lineheight of heading and margin or paragraph in signup, login and verify pages */}
-            <H2>Signup to Feedback App</H2>
-            <P>Pleae signup to get started</P>
+            <Heading variant='default'>Signup to Feedback App</Heading>
+            <Paragraph>Pleae signup to get started</Paragraph>
           </CardHeader>
           <CardContent>
             {/* form started */}
@@ -150,7 +149,7 @@ const SignupPage = () => {
                           }}
                         />
                       </FormControl>
-                      {/* {isCheckingUsernameValidation ? (
+                      {isCheckingUsernameValidation ? (
                         <span className='text-sm text-gray-500'>
                           Checking username availability...
                         </span>
@@ -168,8 +167,8 @@ const SignupPage = () => {
                             );
                           })}
                         </p>
-                      )} */}
-                      {/* <FormMessage /> */}
+                      )}
+                      <FormMessage />
                     </FormItem>
                   )}
                 />

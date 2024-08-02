@@ -1,16 +1,8 @@
 "use client";
 //nextjs page to verify user with 6 digit code
-import { z } from "zod";
-import axios, { AxiosError } from "axios";
-import { useForm } from "react-hook-form";
-import { verifySchema } from "@/schemas/verifySchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useParams, useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
-import { useState } from "react";
+import { Heading } from "@/components/ui/Heading";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import H2 from "@/components/ui/H2";
-import P from "@/components/ui/P";
 import {
   Form,
   FormControl,
@@ -19,9 +11,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { verifySchema } from "@/schemas/verifySchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { ApiResponseInterface } from "../../../../../types";
+import { Paragraph } from "@/components/ui/Paragraph";
 
 const VerifyPage = () => {
   // for loading spinner
@@ -60,10 +60,7 @@ const VerifyPage = () => {
         description: response.data.message,
         variant: "success",
       });
-      setTimeout(() => {
-        router.push(`/login`);
-      }, 500);
-      //TODO: remove this timout and push ==> replace
+      router.replace(`/login`);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponseInterface>;
       console.log(axiosError.response);
@@ -84,11 +81,13 @@ const VerifyPage = () => {
         {/* heading div started */}
         <Card>
           <CardHeader>
-            <H2>Verify Account</H2>
-            <p className='text-muted-foreground text-center py-3'>
+            <Heading>Verify Account</Heading>
+            <Paragraph
+              variant='darkMuted'
+              className='text-center py-3'>
               Please enter the 6-digit verification code that you received in
               your email.
-            </p>
+            </Paragraph>
           </CardHeader>
           <CardContent>
             {/* form started */}
