@@ -46,7 +46,6 @@ export async function POST(request: NextRequest) {
         password: hashedPassword,
         verifyCode,
         verifyCodeExpiry: expiryDate,
-        isVerified: false,
         isAcceptingMessages: true,
         createdAt: createAt,
         messages: [],
@@ -55,7 +54,8 @@ export async function POST(request: NextRequest) {
       console.log(savedUser, "saved user");
     }
     // to send email using sender
-    await sendVerificationEmail(username, email, verifyCode);
+    const emailType: string = "VERIFY";
+    // await sendVerificationEmail(username, verifyCode, emailType, email);
     // sending response
     return NextResponse.json(
       { success: true, message: "Signup Successful" },

@@ -20,6 +20,7 @@ export interface UserInterface extends Document {
   verifyCodeExpiry: Date | undefined;
   isVerified: boolean;
   isAcceptingMessages: boolean;
+  resetPassword: Boolean | undefined;
   createdAt: Date;
   messages?: MessageInterface[];
 }

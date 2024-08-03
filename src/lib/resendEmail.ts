@@ -2,19 +2,27 @@
 import { Resend } from "resend";
 import verifyEmailTempelate from "../../emails/verifyEmailTempelate";
 import { ApiResponseInterface } from "../../types";
+import resetPasswordVerifyEmail from "../../emails/resetPasswordVerifyEmail";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function sendVerificationEmail(
   username: string,
-  email: string,
-  verifyCode: string
+  verifyCode: string,
+  emailType: string,
+  email?: string
 ): Promise<ApiResponseInterface> {
   try {
     const emailResponse = await resend.emails.send({
       from: "onboarding@resend.dev",
       to: "webcoders1122@gmail.com",
-      subject: "Feedback App | Verify Your Email Address",
-      react: verifyEmailTempelate({ username, verifyCode }),
+      subject:
+        emailType === "VERIFY"
+          ? "Feedback App | Verify Your Email Address"
+          : "Feedback App | Reset Your Password",
+      react:
+        emailType === "VERIFY"
+          ? verifyEmailTempelate({ username, verifyCode })
+          : resetPasswordVerifyEmail(username, verifyCode),
     });
     return {
       success: true,

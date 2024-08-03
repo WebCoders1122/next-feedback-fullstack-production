@@ -1,5 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
-import { string } from "zod";
+import mongoose, { Schema } from "mongoose";
 import { MessageInterface, UserInterface } from "../../types";
 
 const messageSchema: Schema<MessageInterface> = new Schema({
@@ -38,6 +37,9 @@ const userSchema: Schema<UserInterface> = new Schema({
   isVerified: {
     type: Boolean,
     default: false,
+  },
+  resetPassword: {
+    type: Boolean,
   },
   isAcceptingMessages: {
     type: Boolean,
