@@ -124,7 +124,7 @@ const LoginPage = () => {
                     </FormItem>
                   )}
                 />
-                {/* TODO: Add retype password */}
+                {/* TODO: Add forgot password */}
 
                 <Button
                   className='w-full space-y-6 font-medium text-sm'

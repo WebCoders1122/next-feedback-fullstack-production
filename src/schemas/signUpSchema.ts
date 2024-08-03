@@ -20,4 +20,5 @@ export const signUpSchema = z.object({
     - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
     - Can contain special characters`,
     }),
+  verify_password: z.string().min(6),
 });

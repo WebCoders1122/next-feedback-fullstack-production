@@ -33,6 +33,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ApiResponseInterface } from "../../../../types";
 import { Paragraph } from "@/components/ui/Paragraph";
+import { set } from "mongoose";
 
 const SignupPage = () => {
   //react states to manege username, isCheckingUsernameValidation, isLoadingValidationMessage, validationMessage, isvalidated, isRegistering
@@ -44,6 +45,8 @@ const SignupPage = () => {
   const [validationMessage, setValidationMessage] = useState("");
   const [isvalidated, setIsvalidated] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
+  const [matchPassword, setMatchPassword] = useState<null | boolean>(null);
+  const [isMatchingPassword, setIsMatchingPassword] = useState(false);
 
   // to add toast messages
   const { toast } = useToast();
@@ -58,11 +61,20 @@ const SignupPage = () => {
       username: "",
       email: "",
       password: "",
+      verify_password: "",
     },
   });
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof signUpSchema>) {
+    setMatchPassword(null);
+    setIsMatchingPassword(true);
+    if (values.password !== values.verify_password) {
+      setMatchPassword(false);
+      setIsMatchingPassword(false);
+      return;
+    }
+    setMatchPassword(true);
     setIsRegistering(true);
     try {
       const response = await axios.post<ApiResponseInterface>(
@@ -132,7 +144,7 @@ const SignupPage = () => {
             <Form {...register}>
               <form
                 onSubmit={register.handleSubmit(onSubmit)}
-                className='space-y-6 '>
+                className='space-y-4 '>
                 <FormField
                   name='username'
                   control={register.control}
@@ -206,7 +218,30 @@ const SignupPage = () => {
                     </FormItem>
                   )}
                 />
-                {/* TODO: Add retype password */}
+                <FormField
+                  name='verify_password'
+                  control={register.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Verify Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type='password'
+                          placeholder='Verify your password here'
+                          {...field}
+                        />
+                      </FormControl>
+                      {!matchPassword ? (
+                        <Paragraph
+                          variant='destructive'
+                          size='sm'>
+                          Password doesn't match
+                        </Paragraph>
+                      ) : null}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 <Button
                   className='w-full space-y-6 font-medium text-sm'
@@ -244,3 +279,4 @@ const SignupPage = () => {
 export default SignupPage;
 
 //TODO: add error and loading pages for this path
+//TODO: anonymus messages in dashboard not recieving automaticallly
