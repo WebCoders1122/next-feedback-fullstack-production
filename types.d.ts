@@ -4,6 +4,7 @@ export interface ApiResponseInterface {
   message: string;
   isAcceptingMessages?: boolean;
   messages?: MessageInterface[];
+  username?: string;
 }
 
 export interface MessageInterface extends Document {

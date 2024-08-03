@@ -143,9 +143,15 @@ const LoginPage = () => {
             </Form>
             {/* form end */}
           </CardContent>
-          <CardFooter>
+          <CardFooter className='flex flex-col items-center'>
+            <Link
+              className='text-primary underline font-medium mb-2'
+              href={"/reset/request"}>
+              {" "}
+              Forgot Password
+            </Link>
             <div className='text-center text-sm w-full'>
-              Not Registered!
+              <span className='mr-2'>Not Registered! </span>
               <Link
                 className='text-primary underline font-medium'
                 href={"/signup"}>

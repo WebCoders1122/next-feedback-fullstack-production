@@ -4,16 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   await dbConnet();
-  const { email, verifyCode } = await request.json();
+  const { username, codeToVerify } = await request.json();
   try {
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ username });
     if (!existingUser) {
       return Response.json(
         { success: false, message: "User not found" },
         { status: 400 }
       );
     }
-    const isCorrectCode = existingUser.verifyCode === verifyCode;
+    const isCorrectCode = existingUser.verifyCode === codeToVerify;
     const isNotExpiredCode =
       new Date(existingUser.verifyCodeExpiry as Date) > new Date();
     if (!isCorrectCode || !isNotExpiredCode) {
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       {
         success: true,
         message: "Verification Successfull",
-        email: email,
+        username: username,
       },
       { status: 200 }
     );

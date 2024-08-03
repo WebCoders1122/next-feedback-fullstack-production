@@ -5,8 +5,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   await dbConnet();
-  const { password, email } = await request.json();
-  if (!password || !email) {
+  const { password, username } = await request.json();
+  if (!password || !username) {
     return NextResponse.json(
       { success: false, message: "Please provide all fields" },
       { status: 400 }
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
     if (!user) {
       return NextResponse.json(
         { success: false, message: "User not found" },

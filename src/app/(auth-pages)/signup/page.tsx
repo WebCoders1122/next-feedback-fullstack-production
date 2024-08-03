@@ -46,7 +46,6 @@ const SignupPage = () => {
   const [isvalidated, setIsvalidated] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
   const [matchPassword, setMatchPassword] = useState<null | boolean>(null);
-  const [isMatchingPassword, setIsMatchingPassword] = useState(false);
 
   // to add toast messages
   const { toast } = useToast();
@@ -68,10 +67,8 @@ const SignupPage = () => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof signUpSchema>) {
     setMatchPassword(null);
-    setIsMatchingPassword(true);
     if (values.password !== values.verify_password) {
       setMatchPassword(false);
-      setIsMatchingPassword(false);
       return;
     }
     setMatchPassword(true);
@@ -231,7 +228,7 @@ const SignupPage = () => {
                           {...field}
                         />
                       </FormControl>
-                      {!matchPassword ? (
+                      {matchPassword === false ? (
                         <Paragraph
                           variant='destructive'
                           size='sm'>

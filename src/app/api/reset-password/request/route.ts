@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       {
         success: true,
         message: "Verification code sent to your email",
-        email: email,
+        username: updatedUser.username,
       },
       { status: 200 }
     );
