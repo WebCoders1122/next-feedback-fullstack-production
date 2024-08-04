@@ -1,6 +1,8 @@
 "use client";
 //nextjs page to verify user with 6 digit code
+import PageMetaData from "@/components/PageMetaData";
 import { Heading } from "@/components/ui/Heading";
+import { Paragraph } from "@/components/ui/Paragraph";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
@@ -13,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { resetPasswordSchema } from "@/schemas/resetPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
@@ -21,9 +24,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ApiResponseInterface } from "../../../../../types";
-import { Paragraph } from "@/components/ui/Paragraph";
-import { resetPasswordSchema } from "@/schemas/resetPasswordSchema";
-import PageMetaData from "@/components/PageMetaData";
 
 const ResetPasswordPage = () => {
   // for loading spinner
@@ -163,5 +163,3 @@ const ResetPasswordPage = () => {
 };
 
 export default ResetPasswordPage;
-
-//TODO: error and loading page

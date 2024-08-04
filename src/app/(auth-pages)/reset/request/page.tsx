@@ -1,6 +1,8 @@
 "use client";
 //nextjs page to verify user with 6 digit code
+import PageMetaData from "@/components/PageMetaData";
 import { Heading } from "@/components/ui/Heading";
+import { Paragraph } from "@/components/ui/Paragraph";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
@@ -12,18 +14,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { verifySchema } from "@/schemas/verifySchema";
+import { emailSchema } from "@/schemas/emailSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ApiResponseInterface } from "../../../../../types";
-import { Paragraph } from "@/components/ui/Paragraph";
-import { emailSchema } from "@/schemas/emailSchema";
-import PageMetaData from "@/components/PageMetaData";
 
 const RequestPasswordResetPage = () => {
   // for loading spinner
@@ -52,8 +51,7 @@ const RequestPasswordResetPage = () => {
         description: response.data.message,
         variant: "success",
       });
-      //TODO: replace instead of push
-      router.push(`/reset/verify/${response.data.username}`);
+      router.replace(`/reset/verify/${response.data.username}`);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponseInterface>;
       console.log(axiosError.response);
@@ -134,6 +132,3 @@ const RequestPasswordResetPage = () => {
 };
 
 export default RequestPasswordResetPage;
-
-//TODO: add metadata
-//TODO: error and loading page

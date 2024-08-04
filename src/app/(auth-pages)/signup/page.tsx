@@ -27,14 +27,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import PageMetaData from "@/components/PageMetaData";
+import { Paragraph } from "@/components/ui/Paragraph";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ApiResponseInterface } from "../../../../types";
-import { Paragraph } from "@/components/ui/Paragraph";
-import { set } from "mongoose";
-import PageMetaData from "@/components/PageMetaData";
 
 const SignupPage = () => {
   //react states to manege username, isCheckingUsernameValidation, isLoadingValidationMessage, validationMessage, isvalidated, isRegistering
@@ -281,6 +280,3 @@ const SignupPage = () => {
   );
 };
 export default SignupPage;
-
-//TODO: add error and loading pages for this path
-//TODO: anonymus messages in dashboard not recieving automaticallly

@@ -1,10 +1,10 @@
 // nextjs route to get all messseges of session users by DB
-import UserModel from "@/model/UserModel";
-import { NextRequest, NextResponse } from "next/server";
 import dbConnet from "@/lib/dbConnect";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/options";
+import UserModel from "@/model/UserModel";
 import mongoose from "mongoose";
+import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "../auth/[...nextauth]/options";
 
 export async function GET(request: NextRequest) {
   await dbConnet();

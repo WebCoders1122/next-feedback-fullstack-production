@@ -23,15 +23,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import PageMetaData from "@/components/PageMetaData";
+import { Heading } from "@/components/ui/Heading";
+import { Paragraph } from "@/components/ui/Paragraph";
 import { useToast } from "@/components/ui/use-toast";
 import { loginSchema } from "@/schemas/loginSchema";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Heading } from "@/components/ui/Heading";
-import { Paragraph } from "@/components/ui/Paragraph";
-import PageMetaData from "@/components/PageMetaData";
 
 const LoginPage = () => {
   // for button disaling and animation

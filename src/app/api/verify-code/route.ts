@@ -1,9 +1,9 @@
 // creating next js route for 6 digit code verification with zod
-import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
-import { verifySchema } from "@/schemas/verifySchema";
-import User from "@/model/UserModel";
 import dbConnet from "@/lib/dbConnect";
+import User from "@/model/UserModel";
+import { verifySchema } from "@/schemas/verifySchema";
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 const verifyCodeQuerySchema = z.object({
   verifyCode: verifySchema,

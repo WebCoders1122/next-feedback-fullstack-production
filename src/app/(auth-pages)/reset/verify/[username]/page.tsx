@@ -1,6 +1,8 @@
 "use client";
 //nextjs page to verify user with 6 digit code
+import PageMetaData from "@/components/PageMetaData";
 import { Heading } from "@/components/ui/Heading";
+import { Paragraph } from "@/components/ui/Paragraph";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
@@ -21,8 +23,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ApiResponseInterface } from "../../../../../../types";
-import { Paragraph } from "@/components/ui/Paragraph";
-import PageMetaData from "@/components/PageMetaData";
 
 const VerifyPasswordResetPage = () => {
   // for loading spinner
@@ -61,8 +61,7 @@ const VerifyPasswordResetPage = () => {
         description: response.data.message,
         variant: "success",
       });
-      //TODO add replace here
-      router.push(`/reset/${username}`);
+      router.replace(`/reset/${username}`);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponseInterface>;
       console.log(axiosError.response);
@@ -143,6 +142,3 @@ const VerifyPasswordResetPage = () => {
 };
 
 export default VerifyPasswordResetPage;
-
-//TODO: add metadata
-//TODO: error and loading page

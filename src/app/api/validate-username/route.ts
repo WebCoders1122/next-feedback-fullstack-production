@@ -1,9 +1,9 @@
 // next js route for username validation
+import dbConnet from "@/lib/dbConnect";
+import User from "@/model/UserModel";
+import { usernameValidation } from "@/schemas/signUpSchema";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import User from "@/model/UserModel";
-import dbConnet from "@/lib/dbConnect";
-import { usernameValidation } from "@/schemas/signUpSchema";
 
 const usernameQuerySchema = z.object({
   username: usernameValidation,

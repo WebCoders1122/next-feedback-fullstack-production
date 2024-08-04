@@ -1,5 +1,5 @@
 "use client";
-import { Trash, X } from "lucide-react";
+import { Trash } from "lucide-react";
 // shadcn imports
 import {
   AlertDialog,
@@ -13,10 +13,10 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import axios, { AxiosError } from "axios";
+import { ApiResponseInterface, MessageInterface } from "../../types";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { useToast } from "./ui/use-toast";
-import { ApiResponseInterface, MessageInterface } from "../../types";
 
 type Props = {
   message: MessageInterface;
@@ -68,7 +68,7 @@ const MessageCard = ({ message, onMessageDelete }: Props) => {
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent className='rounded-xl px-10 max-w-[90vw] sm:max-w-lg'>
-            <AlertDialogHeader className=''>
+            <AlertDialogHeader>
               <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
               <AlertDialogDescription>
                 This action cannot be undone. This will permanently delete
@@ -93,5 +93,3 @@ const MessageCard = ({ message, onMessageDelete }: Props) => {
   );
 };
 export default MessageCard;
-
-//TODO: delete all unused imports from every file

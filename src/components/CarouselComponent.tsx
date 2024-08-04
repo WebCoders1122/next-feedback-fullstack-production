@@ -1,5 +1,6 @@
 "use client";
 
+import messages from "@/messages.json";
 import { Heading } from "./ui/Heading";
 import { Paragraph } from "./ui/Paragraph";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
@@ -10,7 +11,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel";
-import messages from "@/messages.json";
 //autoplay of carousel with loop
 import Autoplay from "embla-carousel-autoplay";
 const CarouselComponent = () => {
@@ -62,5 +62,3 @@ const CarouselComponent = () => {
   );
 };
 export default CarouselComponent;
-
-//TODO: remove this from entire app "className=''"

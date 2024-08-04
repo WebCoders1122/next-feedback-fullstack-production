@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import User from "@/model/UserModel";
-import dbConnet from "@/lib/dbConnect";
 import getVerificationDetails from "@/helpers/getVerificationDetails";
+import dbConnet from "@/lib/dbConnect";
 import sendVerificationEmail from "@/lib/resendEmail";
+import User from "@/model/UserModel";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   await dbConnet();

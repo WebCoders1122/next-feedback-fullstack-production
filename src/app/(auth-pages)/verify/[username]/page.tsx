@@ -142,6 +142,3 @@ const VerifyPage = () => {
 };
 
 export default VerifyPage;
-
-//TODO: add metadata
-//TODO: error and loading page

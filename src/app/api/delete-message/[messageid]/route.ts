@@ -1,11 +1,11 @@
 // creating delete message from DB route with next js
 
+import dbConnet from "@/lib/dbConnect";
+import UserModel from "@/model/UserModel";
 import { User } from "next-auth";
 import { getServerSession } from "next-auth/next";
 import { NextRequest, NextResponse } from "next/server";
-import UserModel from "@/model/UserModel";
 import { authOptions } from "../../auth/[...nextauth]/options";
-import dbConnet from "@/lib/dbConnect";
 
 type Params = {
   params: {

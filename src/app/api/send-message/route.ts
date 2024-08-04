@@ -1,7 +1,7 @@
 // nextjs route that allows anonymus people to send a message to any user
+import dbConnet from "@/lib/dbConnect";
 import User from "@/model/UserModel";
 import { NextRequest, NextResponse } from "next/server";
-import dbConnet from "@/lib/dbConnect";
 import { MessageInterface } from "../../../../types";
 
 export async function POST(request: NextRequest) {

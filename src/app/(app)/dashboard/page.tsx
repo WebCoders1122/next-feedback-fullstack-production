@@ -1,5 +1,8 @@
 "use client";
 import MessageCard from "@/components/MessageCard";
+import PageMetaData from "@/components/PageMetaData";
+import { Heading } from "@/components/ui/Heading";
+import { Paragraph } from "@/components/ui/Paragraph";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -12,9 +15,6 @@ import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ApiResponseInterface, MessageInterface } from "../../../../types";
-import { Paragraph } from "@/components/ui/Paragraph";
-import { Heading } from "@/components/ui/Heading";
-import PageMetaData from "@/components/PageMetaData";
 
 const Dashboard = () => {
   //state for isAcceptMessagesLoading

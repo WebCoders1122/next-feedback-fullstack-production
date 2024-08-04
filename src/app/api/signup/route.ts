@@ -1,10 +1,9 @@
 // make signup route using nextjs server route
-import { NextRequest, NextResponse } from "next/server";
-import dbConnet from "@/lib/dbConnect";
-import User from "@/model/UserModel";
-import sendVerificationEmail from "@/lib/resendEmail";
 import getHashedPass from "@/helpers/getHashedPass";
 import getVerificationDetails from "@/helpers/getVerificationDetails";
+import dbConnet from "@/lib/dbConnect";
+import User from "@/model/UserModel";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   await dbConnet();

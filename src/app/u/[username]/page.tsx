@@ -218,6 +218,3 @@ const Upage = () => {
   );
 };
 export default Upage;
-
-//TODO: make default mode system dark or light mode
-//TODO: add custom logo / Favicon

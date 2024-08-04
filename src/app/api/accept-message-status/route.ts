@@ -1,9 +1,9 @@
 // nextjs route for updating and getting isAcceptingMessage status of user with getServerSession
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/options";
-import User from "@/model/UserModel";
 import dbConnet from "@/lib/dbConnect";
+import User from "@/model/UserModel";
+import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "../auth/[...nextauth]/options";
 
 //method to update user is Accepting status
 export async function PATCH(request: NextRequest) {
