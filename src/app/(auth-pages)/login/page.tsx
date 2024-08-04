@@ -88,7 +88,7 @@ const LoginPage = () => {
           {/* heading div started */}
           <Card>
             <CardHeader>
-              <Heading>Login to Feedback App</Heading>
+              <Heading>Login to Anonymous Feedback</Heading>
               <Paragraph className='ms-2'>Pleae Login to continue</Paragraph>
             </CardHeader>
             <CardContent>
@@ -174,5 +174,3 @@ const LoginPage = () => {
   );
 };
 export default LoginPage;
-//TODO: change app name from feedbackapp ==> Anonymous Feedback
-//TODO: Chanage word anonymus ==> anonymous

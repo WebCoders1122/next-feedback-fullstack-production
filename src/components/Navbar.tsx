@@ -38,13 +38,17 @@ const Navbar = () => {
   //to enable system darkmode
   useEffect(() => {
     handleDarkMode();
-  }, [darkMode]);
+  }, [handleDarkMode]);
+  //to enable system darkmode at startup
+  useEffect(() => {
+    handleSystemDarkMode();
+  }, []);
 
   return (
     <nav className='bg-card w-full border-b py-4 md:py-8 shadow flex gap-1 xsm:gap-3 justify-between items-center px-3 sm:px-8 md:px-14 lg:px-20 mx-auto'>
       <Link href='/'>
         <h2 className='font-bold text-xl xsm:text-2xl md:text-3xl uppercase cursor-pointer'>
-          Feedback App
+          Anonymous Feedback
         </h2>
       </Link>
       <div className='flex gap-2 items-center w-fit'>

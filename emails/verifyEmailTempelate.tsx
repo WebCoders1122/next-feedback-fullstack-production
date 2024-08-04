@@ -14,14 +14,14 @@ const verifyEmailTempelate = ({ username, verifyCode }: Props) => {
         <h1>Verify Email</h1>
         <h3>Dear {username}!</h3>
         <p>
-          Welcome to Anonymus Feedback website. Please enter the following code
+          Welcome to Anonymous Feedback website. Please enter the following code
           to verify and complete your signup process.
         </p>
         <h3 className='text-2xl font-bold'>{verifyCode}</h3>
         <br />
         <p>This code is valid for one hour only</p>
         <p>with best Regards</p>
-        <h3>Feedback App Team</h3>
+        <h3>Anonymous Feedback App Team</h3>
       </Body>
     </Html>
   );

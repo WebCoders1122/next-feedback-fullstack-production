@@ -17,8 +17,8 @@ export default async function sendVerificationEmail(
       to: "webcoders1122@gmail.com",
       subject:
         emailType === "VERIFY"
-          ? "Feedback App | Verify Your Email Address"
-          : "Feedback App | Reset Your Password",
+          ? "Anonymous Feedback| Verify Your Email Address"
+          : "Anonymous Feedback | Reset Your Password",
       react:
         emailType === "VERIFY"
           ? verifyEmailTempelate({ username, verifyCode })

@@ -130,7 +130,7 @@ const ResetPasswordPage = () => {
                           <Paragraph
                             variant='destructive'
                             size='sm'>
-                            Password doesn't match
+                            Password doesn&apos;t match
                           </Paragraph>
                         ) : null}
                         <FormMessage />

@@ -31,12 +31,11 @@ const Dashboard = () => {
 
   //for make react-hook-form instance
   const form = useForm();
-  const { register, setValue, watch, handleSubmit } = form;
+  const { register, setValue, watch } = form;
   const acceptingMessageState = watch("acceptingMessageState");
 
   //for making url
-  const baseUrl = window.location.origin!;
-  const userUrl = `${baseUrl}/u/${user?.username}`;
+  const userUrl = `${process.env.DOMAIN}/u/${user?.username}`;
 
   //getting isAcceptingMessage sate from server
   const getIsAcceptingMessages = async () => {
@@ -81,7 +80,7 @@ const Dashboard = () => {
         });
       }
     },
-    []
+    [setValue, toast]
   );
 
   // copy url to clipboard
@@ -121,10 +120,11 @@ const Dashboard = () => {
     } finally {
       setIsFetchigMessage(false);
     }
-  }, []);
+  }, [toast]);
 
   // initializing dashboard
   useEffect(() => {
+    if (!session) return;
     getIsAcceptingMessages();
     getMessages();
   }, [session]);
@@ -152,7 +152,7 @@ const Dashboard = () => {
         <Paragraph
           variant='darkMuted'
           className='mt-3'>
-          Copy your unique link and share with other to get feedback!
+          Copy your unique link and share with other to get anonymous feedback!
         </Paragraph>
         <div className='w-full my-3 gap-3 flex flex-col xsm:flex-row items-center justify-between'>
           <input

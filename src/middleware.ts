@@ -9,10 +9,7 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
   const url = request.nextUrl.pathname;
 
-  if (
-    (token && publicURL.includes(url)) ||
-    (token && url.startsWith("/verify"))
-  ) {
+  if (token && !url.startsWith("/dashboard")) {
     // Redirect to login page if not authenticated
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }

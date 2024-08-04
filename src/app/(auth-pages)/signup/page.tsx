@@ -139,7 +139,7 @@ const SignupPage = () => {
           {/* heading div started */}
           <Card>
             <CardHeader>
-              <Heading variant='default'>Signup to Feedback App</Heading>
+              <Heading variant='default'>Signup to Anonymous Feedback</Heading>
               <Paragraph>Pleae signup to get started</Paragraph>
             </CardHeader>
             <CardContent>
@@ -238,7 +238,7 @@ const SignupPage = () => {
                           <Paragraph
                             variant='destructive'
                             size='sm'>
-                            Password doesn't match
+                            Password doesn&apos;t match
                           </Paragraph>
                         ) : null}
                         <FormMessage />
