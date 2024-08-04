@@ -94,7 +94,7 @@ const RequestPasswordResetPage = () => {
                     <FormItem>
                       <FormControl>
                         <Input
-                          placeholder='Enter Verification Code'
+                          placeholder='Enter Your Email'
                           {...field}
                         />
                       </FormControl>

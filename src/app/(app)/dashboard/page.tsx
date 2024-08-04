@@ -124,15 +124,17 @@ const Dashboard = () => {
       const response = await axios.get<ApiResponseInterface>(
         "/api/get-messages"
       );
+      console.log(response);
       const fetchedMessages = response?.data?.messages;
-      !fetchedMessages
+      fetchedMessages?.length === 0
         ? toast({
             title: "Failed",
             description: "No messages found",
             variant: "destructive",
           })
-        : setMessages(fetchedMessages);
+        : setMessages(fetchedMessages!);
     } catch (error) {
+      console.log(error);
       const axiosError = error as AxiosError<ApiResponseInterface>;
       toast({
         title: "Failed",
@@ -149,8 +151,6 @@ const Dashboard = () => {
     getIsAcceptingMessages();
     getMessages();
   }, [session]);
-  // useEffect(() => {
-  // }, [setMessages]);
 
   //Optimistic UI stretegy for remving from UI
   const onMessageDelete = (messageID: string) => {
@@ -230,4 +230,3 @@ const Dashboard = () => {
   );
 };
 export default Dashboard;
-// TODO: error while getching empty message array from DB => it should be not found

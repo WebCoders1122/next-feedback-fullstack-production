@@ -26,15 +26,15 @@ export async function DELETE(request: NextRequest, { params }: Params) {
     );
   }
   try {
-    const updateUser = await UserModel.findByIdAndUpdate(
-      user._id,
-      { $pull: { messages: { _id: messageID } } },
-      { new: true }
+    const updateUser = await UserModel.updateOne(
+      { _id: user._id },
+      { $pull: { messages: { _id: messageID } } }
     );
     if (!updateUser) return;
     if (updateUser.modifiedCount === 0) {
       return NextResponse.json(
         {
+          error: updateUser,
           success: false,
           message: "Message was not delete dut to some problem",
         },

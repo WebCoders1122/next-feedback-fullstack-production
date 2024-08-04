@@ -8,24 +8,25 @@ import mongoose from "mongoose";
 
 export async function GET(request: NextRequest) {
   await dbConnet();
-  //   getting server session and sending response if not found
-  // const session = await getServerSession(authOptions);
-  // if (!session) {
-  //   return NextResponse.json(
-  //     { success: false, message: "You are not Authorized to get messages" },
-  //     { status: 401 }
-  //   );
-  // }
-  //getting user id from session and sending response if not found
-  // const userID = session.user?._id;
-  // if (!userID) {
-  //   return NextResponse.json(
-  //     { success: false, message: "Unauthorized UserID" },
-  //     { status: 401 }
-  //   );
-  // }
+  // getting server session and sending response if not found
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json(
+      { success: false, message: "You are not Authorized to get messages" },
+      { status: 401 }
+    );
+  }
+  // getting user id from session and sending response if not found
+  const userID = session.user?._id;
+  if (!userID) {
+    return NextResponse.json(
+      { success: false, message: "Unauthorized UserID" },
+      { status: 401 }
+    );
+  }
   //Converting string id to mongoose objectId
-  const userObjectId = new mongoose.Types.ObjectId("66acfc113e9f10d5df03b76c");
+  const userObjectId = new mongoose.Types.ObjectId(userID);
+
   try {
     //getting all messages of user by userID
     const userMessageData = await UserModel.aggregate([
@@ -43,6 +44,16 @@ export async function GET(request: NextRequest) {
         },
       },
     ]).exec();
+    if (userMessageData.length === 0) {
+      return NextResponse.json(
+        {
+          success: true,
+          message: "No Messages Found from DB",
+          messages: [],
+        },
+        { status: 200 }
+      );
+    }
     return NextResponse.json(
       {
         success: true,
@@ -52,7 +63,6 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       {
         error: error,

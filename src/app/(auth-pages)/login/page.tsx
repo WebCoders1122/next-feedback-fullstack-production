@@ -59,6 +59,7 @@ const LoginPage = () => {
       email: values.email,
       password: values.password,
     });
+    console.log(response);
     if (response?.error) {
       setIsLoggingIn(false);
       return toast({
@@ -124,7 +125,6 @@ const LoginPage = () => {
                     </FormItem>
                   )}
                 />
-                {/* TODO: Add forgot password */}
 
                 <Button
                   className='w-full space-y-6 font-medium text-sm'
