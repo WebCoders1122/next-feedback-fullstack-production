@@ -46,7 +46,7 @@ const LoginPage = () => {
   const login = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
+      identifier: "",
       password: "",
     },
   });
@@ -56,7 +56,7 @@ const LoginPage = () => {
     setIsLoggingIn(true);
     const response = await signIn("credentials", {
       redirect: false,
-      email: values.email,
+      identifier: values.identifier,
       password: values.password,
     });
     console.log(response);
@@ -92,15 +92,15 @@ const LoginPage = () => {
                 onSubmit={login.handleSubmit(onSubmit)}
                 className='space-y-6 '>
                 <FormField
-                  name='email'
+                  name='identifier'
                   control={login.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>Username / Email </FormLabel>
                       <FormControl>
                         <Input
-                          type='email'
-                          placeholder='Your email Here'
+                          type='text'
+                          placeholder='Enter your Username / Email here'
                           {...field}
                         />
                       </FormControl>

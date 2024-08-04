@@ -13,10 +13,10 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
       // these credentials will provide values from user and also make html form
       credentials: {
-        email: {
-          label: "Email",
-          type: "email",
-          placeholder: "Input your email here",
+        identifier: {
+          label: "Username / Email",
+          type: "text",
+          placeholder: "Enter your Username / Email here",
         },
         password: { label: "Password", type: "password" },
         //TODO: add any custom properties here and check if it works
@@ -29,8 +29,8 @@ export const authOptions: NextAuthOptions = {
           //find user from mongoDB
           const user = await User.findOne({
             $or: [
-              { email: credentials.email },
-              { username: credentials.username },
+              { email: credentials.identifier },
+              { username: credentials.identifier },
             ],
           });
           //checking user details
