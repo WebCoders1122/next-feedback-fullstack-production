@@ -35,7 +35,7 @@ const Dashboard = () => {
   const acceptingMessageState = watch("acceptingMessageState");
 
   //for making url
-  const userUrl = `${process.env.DOMAIN}/u/${user?.username}`;
+  const userUrl = `https://feedback-ashen-nine.vercel.app/u/${user?.username}`;
 
   //getting isAcceptingMessage sate from server
   const getIsAcceptingMessages = async () => {
