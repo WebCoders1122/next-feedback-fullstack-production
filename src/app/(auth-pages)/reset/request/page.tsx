@@ -23,6 +23,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ApiResponseInterface } from "../../../../../types";
+import verifyEmailTempelate from "../../../../../emails/verifyEmailTempelate";
 
 const RequestPasswordResetPage = () => {
   // for loading spinner

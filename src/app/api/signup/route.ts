@@ -2,13 +2,13 @@
 import getHashedPass from "@/helpers/getHashedPass";
 import getVerificationDetails from "@/helpers/getVerificationDetails";
 import dbConnet from "@/lib/dbConnect";
+import sendVerificationEmail from "@/lib/mailer";
 import User from "@/model/UserModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   await dbConnet();
   const { username, email, password } = await request.json();
-  console.log(username, email, password);
   try {
     const hashedPassword = await getHashedPass(password);
     const { verifyCode, expiryDate, createAt } = getVerificationDetails();
@@ -50,11 +50,10 @@ export async function POST(request: NextRequest) {
         messages: [],
       });
       const savedUser = await newUser.save();
-      console.log(savedUser, "saved user");
     }
     // to send email using sender
     const emailType: string = "VERIFY";
-    // await sendVerificationEmail(username, verifyCode, emailType, email);
+    await sendVerificationEmail(username, verifyCode, emailType, email);
     // sending response
     return NextResponse.json(
       { success: true, message: "Signup Successful" },

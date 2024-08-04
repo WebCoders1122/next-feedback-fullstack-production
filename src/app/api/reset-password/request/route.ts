@@ -1,6 +1,6 @@
 import getVerificationDetails from "@/helpers/getVerificationDetails";
 import dbConnet from "@/lib/dbConnect";
-import sendVerificationEmail from "@/lib/resendEmail";
+import sendVerificationEmail from "@/lib/mailer";
 import User from "@/model/UserModel";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -36,7 +36,12 @@ export async function POST(request: NextRequest) {
     }
     //send email to user for verification
     const emailType: string = "RESET";
-    await sendVerificationEmail(existingUser.username, verifyCode, emailType);
+    await sendVerificationEmail(
+      existingUser.username,
+      verifyCode,
+      emailType,
+      existingUser.email
+    );
     return NextResponse.json(
       {
         success: true,
