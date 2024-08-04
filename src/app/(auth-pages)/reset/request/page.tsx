@@ -23,6 +23,7 @@ import { z } from "zod";
 import { ApiResponseInterface } from "../../../../../types";
 import { Paragraph } from "@/components/ui/Paragraph";
 import { emailSchema } from "@/schemas/emailSchema";
+import PageMetaData from "@/components/PageMetaData";
 
 const RequestPasswordResetPage = () => {
   // for loading spinner
@@ -68,61 +69,67 @@ const RequestPasswordResetPage = () => {
     }
   };
   return (
-    <div className='bg-background sm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
-      <div>
-        {/* heading div started */}
-        <Card>
-          <CardHeader>
-            <Heading>Reset Your Password</Heading>
-            <Paragraph
-              variant='darkMuted'
-              className='text-center py-3'>
-              Please enter your email to get verification code for resetting
-              password.
-            </Paragraph>
-          </CardHeader>
-          <CardContent>
-            {/* form started */}
-            <Form {...request}>
-              <form
-                onSubmit={request.handleSubmit(onSubmit)}
-                className='space-y-6 '>
-                <FormField
-                  name='email'
-                  control={request.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder='Enter Your Email'
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  className='w-full space-y-6 font-medium text-sm'
-                  type='submit'
-                  disabled={isSendingRequest}>
-                  {isSendingRequest ? (
-                    <>
-                      <Loader2 className='animate-spin mr-3' /> Requesting
-                      Verification Code!
-                    </>
-                  ) : (
-                    "Reset Password"
-                  )}
-                </Button>
-              </form>
-            </Form>
-            {/* form end */}
-          </CardContent>
-        </Card>
-        {/* heading div end */}
+    <>
+      <PageMetaData
+        title='Reset Password - Anonymous Feedback'
+        description='This is Reset Password Page for Anonymous Feedback'
+      />
+      <div className='bg-background sm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
+        <div>
+          {/* heading div started */}
+          <Card>
+            <CardHeader>
+              <Heading>Reset Your Password</Heading>
+              <Paragraph
+                variant='darkMuted'
+                className='text-center py-3'>
+                Please enter your email to get verification code for resetting
+                password.
+              </Paragraph>
+            </CardHeader>
+            <CardContent>
+              {/* form started */}
+              <Form {...request}>
+                <form
+                  onSubmit={request.handleSubmit(onSubmit)}
+                  className='space-y-6 '>
+                  <FormField
+                    name='email'
+                    control={request.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            placeholder='Enter Your Email'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    className='w-full space-y-6 font-medium text-sm'
+                    type='submit'
+                    disabled={isSendingRequest}>
+                    {isSendingRequest ? (
+                      <>
+                        <Loader2 className='animate-spin mr-3' /> Requesting
+                        Verification Code!
+                      </>
+                    ) : (
+                      "Reset Password"
+                    )}
+                  </Button>
+                </form>
+              </Form>
+              {/* form end */}
+            </CardContent>
+          </Card>
+          {/* heading div end */}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

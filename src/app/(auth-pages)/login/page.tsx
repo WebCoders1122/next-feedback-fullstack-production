@@ -31,6 +31,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Heading } from "@/components/ui/Heading";
 import { Paragraph } from "@/components/ui/Paragraph";
+import PageMetaData from "@/components/PageMetaData";
 
 const LoginPage = () => {
   // for button disaling and animation
@@ -77,95 +78,101 @@ const LoginPage = () => {
   };
 
   return (
-    <div className='bg-background sm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
-      <div>
-        {/* heading div started */}
-        <Card>
-          <CardHeader>
-            <Heading>Login to Feedback App</Heading>
-            <Paragraph className='ms-2'>Pleae Login to continue</Paragraph>
-          </CardHeader>
-          <CardContent>
-            {/* form started */}
-            <Form {...login}>
-              <form
-                onSubmit={login.handleSubmit(onSubmit)}
-                className='space-y-6 '>
-                <FormField
-                  name='identifier'
-                  control={login.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username / Email </FormLabel>
-                      <FormControl>
-                        <Input
-                          type='text'
-                          placeholder='Enter your Username / Email here'
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name='password'
-                  control={login.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          type='password'
-                          placeholder='Your password Here'
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+    <>
+      <PageMetaData
+        title='Login - Anonymous Feedback'
+        description='This is Login Page for Anonymous Feedback'
+      />
+      <div className='bg-background sm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
+        <div>
+          {/* heading div started */}
+          <Card>
+            <CardHeader>
+              <Heading>Login to Feedback App</Heading>
+              <Paragraph className='ms-2'>Pleae Login to continue</Paragraph>
+            </CardHeader>
+            <CardContent>
+              {/* form started */}
+              <Form {...login}>
+                <form
+                  onSubmit={login.handleSubmit(onSubmit)}
+                  className='space-y-6 '>
+                  <FormField
+                    name='identifier'
+                    control={login.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username / Email </FormLabel>
+                        <FormControl>
+                          <Input
+                            type='text'
+                            placeholder='Enter your Username / Email here'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    name='password'
+                    control={login.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type='password'
+                            placeholder='Your password Here'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                <Button
-                  className='w-full space-y-6 font-medium text-sm'
-                  type='submit'
-                  disabled={isLoggingIn}>
-                  {isLoggingIn ? (
-                    <>
-                      <Loader2 className='animate-spin mr-3' /> Logging In!
-                      Please Wait
-                    </>
-                  ) : (
-                    "Login"
-                  )}
-                </Button>
-              </form>
-            </Form>
-            {/* form end */}
-          </CardContent>
-          <CardFooter className='flex flex-col items-center'>
-            <Link
-              className='text-primary underline font-medium mb-2'
-              href={"/reset/request"}>
-              {" "}
-              Forgot Password
-            </Link>
-            <div className='text-center text-sm w-full'>
-              <span className='mr-2'>Not Registered! </span>
+                  <Button
+                    className='w-full space-y-6 font-medium text-sm'
+                    type='submit'
+                    disabled={isLoggingIn}>
+                    {isLoggingIn ? (
+                      <>
+                        <Loader2 className='animate-spin mr-3' /> Logging In!
+                        Please Wait
+                      </>
+                    ) : (
+                      "Login"
+                    )}
+                  </Button>
+                </form>
+              </Form>
+              {/* form end */}
+            </CardContent>
+            <CardFooter className='flex flex-col items-center'>
               <Link
-                className='text-primary underline font-medium'
-                href={"/signup"}>
+                className='text-primary underline font-medium mb-2'
+                href={"/reset/request"}>
                 {" "}
-                Signup Here
+                Forgot Password
               </Link>
-            </div>
-          </CardFooter>
-        </Card>
-        {/* heading div end */}
+              <div className='text-center text-sm w-full'>
+                <span className='mr-2'>Not Registered! </span>
+                <Link
+                  className='text-primary underline font-medium'
+                  href={"/signup"}>
+                  {" "}
+                  Signup Here
+                </Link>
+              </div>
+            </CardFooter>
+          </Card>
+          {/* heading div end */}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default LoginPage;
-
-//TODO: try to add login with both => username and password
+//TODO: change app name from feedbackapp ==> Anonymous Feedback
+//TODO: Chanage word anonymus ==> anonymous

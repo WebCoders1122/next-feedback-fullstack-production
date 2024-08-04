@@ -34,6 +34,7 @@ import { useRouter } from "next/navigation";
 import { ApiResponseInterface } from "../../../../types";
 import { Paragraph } from "@/components/ui/Paragraph";
 import { set } from "mongoose";
+import PageMetaData from "@/components/PageMetaData";
 
 const SignupPage = () => {
   //react states to manege username, isCheckingUsernameValidation, isLoadingValidationMessage, validationMessage, isvalidated, isRegistering
@@ -128,149 +129,155 @@ const SignupPage = () => {
     checkUsernameValidation();
   }, [username]);
   return (
-    <div className='bg-background sm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
-      <div>
-        {/* heading div started */}
-        <Card>
-          <CardHeader>
-            <Heading variant='default'>Signup to Feedback App</Heading>
-            <Paragraph>Pleae signup to get started</Paragraph>
-          </CardHeader>
-          <CardContent>
-            {/* form started */}
-            <Form {...register}>
-              <form
-                onSubmit={register.handleSubmit(onSubmit)}
-                className='space-y-4 '>
-                <FormField
-                  name='username'
-                  control={register.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder='Your Username Here'
-                          {...field}
-                          onChange={(e) => {
-                            field.onChange(e);
-                            debounced(e.target.value);
-                          }}
-                        />
-                      </FormControl>
-                      {isCheckingUsernameValidation ? (
-                        <span className='text-sm text-gray-500'>
-                          Checking username availability...
-                        </span>
-                      ) : (
-                        <p
-                          className={`text-sm inline ${
-                            isvalidated ? "text-green-500" : "text-red-500"
-                          }`}>
-                          {validationMessage.split("-").map((message, i) => {
-                            if (message.length < 3) return null;
-                            return (
-                              <span
-                                className='block'
-                                key={i}>{`-${message}`}</span>
-                            );
-                          })}
-                        </p>
-                      )}
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name='email'
-                  control={register.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          type='email'
-                          placeholder='Your email Here'
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name='password'
-                  control={register.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          type='password'
-                          placeholder='Your password Here'
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name='verify_password'
-                  control={register.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Verify Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          type='password'
-                          placeholder='Verify your password here'
-                          {...field}
-                        />
-                      </FormControl>
-                      {matchPassword === false ? (
-                        <Paragraph
-                          variant='destructive'
-                          size='sm'>
-                          Password doesn't match
-                        </Paragraph>
-                      ) : null}
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+    <>
+      <PageMetaData
+        title='Sign Up'
+        description='This is Sign Up Page for Anonymous Feedback'
+      />
+      <div className='bg-background sm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
+        <div>
+          {/* heading div started */}
+          <Card>
+            <CardHeader>
+              <Heading variant='default'>Signup to Feedback App</Heading>
+              <Paragraph>Pleae signup to get started</Paragraph>
+            </CardHeader>
+            <CardContent>
+              {/* form started */}
+              <Form {...register}>
+                <form
+                  onSubmit={register.handleSubmit(onSubmit)}
+                  className='space-y-4 '>
+                  <FormField
+                    name='username'
+                    control={register.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder='Your Username Here'
+                            {...field}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              debounced(e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        {isCheckingUsernameValidation ? (
+                          <span className='text-sm text-gray-500'>
+                            Checking username availability...
+                          </span>
+                        ) : (
+                          <p
+                            className={`text-sm inline ${
+                              isvalidated ? "text-green-500" : "text-red-500"
+                            }`}>
+                            {validationMessage.split("-").map((message, i) => {
+                              if (message.length < 3) return null;
+                              return (
+                                <span
+                                  className='block'
+                                  key={i}>{`-${message}`}</span>
+                              );
+                            })}
+                          </p>
+                        )}
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    name='email'
+                    control={register.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            type='email'
+                            placeholder='Your email Here'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    name='password'
+                    control={register.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type='password'
+                            placeholder='Your password Here'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    name='verify_password'
+                    control={register.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Verify Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type='password'
+                            placeholder='Verify your password here'
+                            {...field}
+                          />
+                        </FormControl>
+                        {matchPassword === false ? (
+                          <Paragraph
+                            variant='destructive'
+                            size='sm'>
+                            Password doesn't match
+                          </Paragraph>
+                        ) : null}
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                <Button
-                  className='w-full space-y-6 font-medium text-sm'
-                  type='submit'
-                  disabled={isRegistering}>
-                  {isRegistering ? (
-                    <>
-                      <Loader2 className='animate-spin mr-3' /> Please Wait!
-                    </>
-                  ) : (
-                    "Signup"
-                  )}
-                </Button>
-              </form>
-            </Form>
-            {/* form end */}
-          </CardContent>
-          <CardFooter>
-            <div className='text-center text-sm w-full'>
-              Already Registered!
-              <Link
-                className='text-primary underline font-medium'
-                href={"/login"}>
-                {" "}
-                Login Here
-              </Link>
-            </div>
-          </CardFooter>
-        </Card>
-        {/* heading div end */}
+                  <Button
+                    className='w-full space-y-6 font-medium text-sm'
+                    type='submit'
+                    disabled={isRegistering}>
+                    {isRegistering ? (
+                      <>
+                        <Loader2 className='animate-spin mr-3' /> Please Wait!
+                      </>
+                    ) : (
+                      "Signup"
+                    )}
+                  </Button>
+                </form>
+              </Form>
+              {/* form end */}
+            </CardContent>
+            <CardFooter>
+              <div className='text-center text-sm w-full'>
+                Already Registered!
+                <Link
+                  className='text-primary underline font-medium'
+                  href={"/login"}>
+                  {" "}
+                  Login Here
+                </Link>
+              </div>
+            </CardFooter>
+          </Card>
+          {/* heading div end */}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default SignupPage;

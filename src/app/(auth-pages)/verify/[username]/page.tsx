@@ -22,6 +22,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ApiResponseInterface } from "../../../../../types";
 import { Paragraph } from "@/components/ui/Paragraph";
+import PageMetaData from "@/components/PageMetaData";
 
 const VerifyPage = () => {
   // for loading spinner
@@ -76,61 +77,67 @@ const VerifyPage = () => {
     }
   };
   return (
-    <div className='bg-background sm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
-      <div>
-        {/* heading div started */}
-        <Card>
-          <CardHeader>
-            <Heading>Verify Account</Heading>
-            <Paragraph
-              variant='darkMuted'
-              className='text-center py-3'>
-              Please enter the 6-digit verification code that you received in
-              your email.
-            </Paragraph>
-          </CardHeader>
-          <CardContent>
-            {/* form started */}
-            <Form {...verify}>
-              <form
-                onSubmit={verify.handleSubmit(onSubmit)}
-                className='space-y-6 '>
-                <FormField
-                  name='Code'
-                  control={verify.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder='Enter Verification Code'
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  className='w-full space-y-6 font-medium text-sm'
-                  type='submit'
-                  disabled={isVerifying}>
-                  {isVerifying ? (
-                    <>
-                      <Loader2 className='animate-spin mr-3' /> Verification in
-                      Progress!
-                    </>
-                  ) : (
-                    "Verify Code"
-                  )}
-                </Button>
-              </form>
-            </Form>
-            {/* form end */}
-          </CardContent>
-        </Card>
-        {/* heading div end */}
+    <>
+      <PageMetaData
+        title='Verify Code'
+        description='This is Verify Code Page for Anonymous Feedback'
+      />
+      <div className='bg-background sm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
+        <div>
+          {/* heading div started */}
+          <Card>
+            <CardHeader>
+              <Heading>Verify Account</Heading>
+              <Paragraph
+                variant='darkMuted'
+                className='text-center py-3'>
+                Please enter the 6-digit verification code that you received in
+                your email.
+              </Paragraph>
+            </CardHeader>
+            <CardContent>
+              {/* form started */}
+              <Form {...verify}>
+                <form
+                  onSubmit={verify.handleSubmit(onSubmit)}
+                  className='space-y-6 '>
+                  <FormField
+                    name='Code'
+                    control={verify.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            placeholder='Enter Verification Code'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    className='w-full space-y-6 font-medium text-sm'
+                    type='submit'
+                    disabled={isVerifying}>
+                    {isVerifying ? (
+                      <>
+                        <Loader2 className='animate-spin mr-3' /> Verification
+                        in Progress!
+                      </>
+                    ) : (
+                      "Verify Code"
+                    )}
+                  </Button>
+                </form>
+              </Form>
+              {/* form end */}
+            </CardContent>
+          </Card>
+          {/* heading div end */}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

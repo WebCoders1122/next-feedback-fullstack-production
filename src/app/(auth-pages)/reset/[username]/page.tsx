@@ -23,6 +23,7 @@ import { z } from "zod";
 import { ApiResponseInterface } from "../../../../../types";
 import { Paragraph } from "@/components/ui/Paragraph";
 import { resetPasswordSchema } from "@/schemas/resetPasswordSchema";
+import PageMetaData from "@/components/PageMetaData";
 
 const ResetPasswordPage = () => {
   // for loading spinner
@@ -77,85 +78,90 @@ const ResetPasswordPage = () => {
     }
   };
   return (
-    <div className='bg-background sm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
-      <div>
-        {/* heading div started */}
-        <Card>
-          <CardHeader>
-            <Heading>Reset Password</Heading>
-          </CardHeader>
-          <CardContent>
-            {/* form started */}
-            <Form {...reset}>
-              <form
-                onSubmit={reset.handleSubmit(onSubmit)}
-                className='space-y-6 w-[360px]'>
-                <FormField
-                  name='password'
-                  control={reset.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          type='password'
-                          placeholder='Your password Here'
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name='verify_password'
-                  control={reset.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Verify Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          type='password'
-                          placeholder='Verify your password here'
-                          {...field}
-                        />
-                      </FormControl>
-                      {matchPassword === false ? (
-                        <Paragraph
-                          variant='destructive'
-                          size='sm'>
-                          Password doesn't match
-                        </Paragraph>
-                      ) : null}
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  className='w-full space-y-6 font-medium text-sm'
-                  type='submit'
-                  disabled={isResettingPassword}>
-                  {isResettingPassword ? (
-                    <>
-                      <Loader2 className='animate-spin mr-3' /> Password is
-                      Resetting!
-                    </>
-                  ) : (
-                    "Reset Password"
-                  )}
-                </Button>
-              </form>
-            </Form>
-            {/* form end */}
-          </CardContent>
-        </Card>
-        {/* heading div end */}
+    <>
+      <PageMetaData
+        title='New Password - Anonymous Feedback'
+        description='This is New Password Page for Anonymous Feedback'
+      />
+      <div className='bg-background sm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
+        <div>
+          {/* heading div started */}
+          <Card>
+            <CardHeader>
+              <Heading>Reset Password</Heading>
+            </CardHeader>
+            <CardContent>
+              {/* form started */}
+              <Form {...reset}>
+                <form
+                  onSubmit={reset.handleSubmit(onSubmit)}
+                  className='space-y-6 w-[360px]'>
+                  <FormField
+                    name='password'
+                    control={reset.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type='password'
+                            placeholder='Your password Here'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    name='verify_password'
+                    control={reset.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Verify Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type='password'
+                            placeholder='Verify your password here'
+                            {...field}
+                          />
+                        </FormControl>
+                        {matchPassword === false ? (
+                          <Paragraph
+                            variant='destructive'
+                            size='sm'>
+                            Password doesn't match
+                          </Paragraph>
+                        ) : null}
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    className='w-full space-y-6 font-medium text-sm'
+                    type='submit'
+                    disabled={isResettingPassword}>
+                    {isResettingPassword ? (
+                      <>
+                        <Loader2 className='animate-spin mr-3' /> Password is
+                        Resetting!
+                      </>
+                    ) : (
+                      "Reset Password"
+                    )}
+                  </Button>
+                </form>
+              </Form>
+              {/* form end */}
+            </CardContent>
+          </Card>
+          {/* heading div end */}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
 export default ResetPasswordPage;
 
-//TODO: add metadata
 //TODO: error and loading page

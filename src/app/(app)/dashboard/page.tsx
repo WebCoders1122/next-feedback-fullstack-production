@@ -14,30 +14,7 @@ import { useForm } from "react-hook-form";
 import { ApiResponseInterface, MessageInterface } from "../../../../types";
 import { Paragraph } from "@/components/ui/Paragraph";
 import { Heading } from "@/components/ui/Heading";
-
-const initialState = [
-  {
-    _id: "1",
-    content: "hello fried how are you",
-    createAt: new Date(Date.now()),
-  },
-  {
-    _id: "2",
-    content: "hello fried how ahd alj af;wljk;laj sdf sldfja; f are you",
-    createAt: new Date(Date.now()),
-  },
-  {
-    _id: "3",
-    content:
-      "hello alkjf a asd;flaj sdf;;ljklkjasdh flasdklhl a fried how are you",
-    createAt: new Date(Date.now()),
-  },
-  {
-    _id: "4",
-    content: "hello aksdfj al fried how are you",
-    createAt: new Date(Date.now()),
-  },
-];
+import PageMetaData from "@/components/PageMetaData";
 
 const Dashboard = () => {
   //state for isAcceptMessagesLoading
@@ -160,73 +137,79 @@ const Dashboard = () => {
     setMessages(newMessages);
   };
   return (
-    <div className='max-w-5xl flex flex-col justify-center p-4 mx-auto'>
-      <Heading variant='darkMuted'>
-        Welcome{" "}
-        <span className='text-primary uppercase mx-1'>{user?.username}</span> to
-        Dashboard
-      </Heading>
-      {/* 1st section */}
-      <Paragraph
-        variant='darkMuted'
-        className='mt-3'>
-        Copy your unique link and share with other to get feedback!
-      </Paragraph>
-      <div className='w-full my-3 gap-3 flex flex-col xsm:flex-row items-center justify-between'>
-        <input
-          type='text'
-          value={userUrl}
-          disabled
-          className='text-muted-foreground w-full rounded-sm py-1.5 bg-muted px-3 border-none outline-none'
-        />
-        <Button
-          className='w-full xsm:w-fit'
-          onClick={copyUrlToClipboard}>
-          Copy URL
-        </Button>
-      </div>
-      <Separator className='my-5' />
-      {/* 2nd section */}
-      <div className='w-full'>
-        <div className='flex items-center gap-2'>
-          <Switch
-            {...register}
-            onCheckedChange={(checked) => setIsAcceptingMessages(checked)}
-            disabled={isAcceptMessagesLoading}
-            checked={acceptingMessageState}
+    <>
+      <PageMetaData
+        title={`${user?.username} Dashboard`}
+        description={`This is ${user?.username} Dashboard`}
+      />
+      <div className='max-w-5xl flex flex-col justify-center p-4 mx-auto'>
+        <Heading variant='darkMuted'>
+          Welcome{" "}
+          <span className='text-primary uppercase mx-1'>{user?.username}</span>{" "}
+          to Dashboard
+        </Heading>
+        {/* 1st section */}
+        <Paragraph
+          variant='darkMuted'
+          className='mt-3'>
+          Copy your unique link and share with other to get feedback!
+        </Paragraph>
+        <div className='w-full my-3 gap-3 flex flex-col xsm:flex-row items-center justify-between'>
+          <input
+            type='text'
+            value={userUrl}
+            disabled
+            className='text-muted-foreground w-full rounded-sm py-1.5 bg-muted px-3 border-none outline-none'
           />
-          <span>
-            Accepting messages: {acceptingMessageState ? "On" : "Off"}
-          </span>
+          <Button
+            className='w-full xsm:w-fit'
+            onClick={copyUrlToClipboard}>
+            Copy URL
+          </Button>
         </div>
-        <Separator className='my-2' />
-        <>
-          {messages && messages.length > 0 ? (
-            <div className='grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-4 mt-8 mx-auto w-fit'>
-              {messages.map((message) => (
-                <MessageCard
-                  key={message._id}
-                  message={message}
-                  onMessageDelete={onMessageDelete}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className=' w-full mx-auto p-5'>
-              <Card className=' w-fit rounded-sm py-2 px-4 mb-2'>
-                <RotateCw
-                  onClick={getMessages}
-                  className={`text-muted-foreground ${
-                    isFetchigMessage ? "animate-spin" : ""
-                  }`}
-                />
-              </Card>
-              <Paragraph>no messages to display</Paragraph>
-            </div>
-          )}
-        </>
+        <Separator className='my-5' />
+        {/* 2nd section */}
+        <div className='w-full'>
+          <div className='flex items-center gap-2'>
+            <Switch
+              {...register}
+              onCheckedChange={(checked) => setIsAcceptingMessages(checked)}
+              disabled={isAcceptMessagesLoading}
+              checked={acceptingMessageState}
+            />
+            <span>
+              Accepting messages: {acceptingMessageState ? "On" : "Off"}
+            </span>
+          </div>
+          <Separator className='my-2' />
+          <>
+            {messages && messages.length > 0 ? (
+              <div className='grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-4 mt-8 mx-auto w-fit'>
+                {messages.map((message) => (
+                  <MessageCard
+                    key={message._id}
+                    message={message}
+                    onMessageDelete={onMessageDelete}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className=' w-full mx-auto p-5'>
+                <Card className=' w-fit rounded-sm py-2 px-4 mb-2'>
+                  <RotateCw
+                    onClick={getMessages}
+                    className={`text-muted-foreground ${
+                      isFetchigMessage ? "animate-spin" : ""
+                    }`}
+                  />
+                </Card>
+                <Paragraph>no messages to display</Paragraph>
+              </div>
+            )}
+          </>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Dashboard;
