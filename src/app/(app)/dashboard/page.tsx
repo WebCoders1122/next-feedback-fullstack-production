@@ -175,7 +175,7 @@ const Dashboard = () => {
             className='text-muted-foreground w-full rounded-sm py-1.5 bg-muted px-3 border-none outline-none'
           />
           <Button
-            className='w-full xsm:w-fit'
+            className='w-full xsm:w-fit text-nowrap'
             onClick={copyUrlToClipboard}>
             Copy URL
           </Button>

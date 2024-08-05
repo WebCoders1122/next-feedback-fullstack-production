@@ -86,7 +86,11 @@ const Navbar = () => {
                 </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button onClick={() => signOut()}>Sign Out</Button>
+            <Button
+              className='text-nowrap'
+              onClick={() => signOut()}>
+              Sign Out
+            </Button>
           </>
         ) : (
           <>
