@@ -4,7 +4,7 @@ import PageMetaData from "@/components/PageMetaData";
 import { Heading } from "@/components/ui/Heading";
 import { Paragraph } from "@/components/ui/Paragraph";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
@@ -15,7 +15,7 @@ import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ApiResponseInterface, MessageInterface } from "../../../../types";
-
+import { Skeleton } from "@/components/ui/skeleton";
 const Dashboard = () => {
   //state for isAcceptMessagesLoading
   const [isAcceptMessagesLoading, setIsAcceptMessagesLoading] = useState(false);
@@ -35,7 +35,7 @@ const Dashboard = () => {
   const acceptingMessageState = watch("acceptingMessageState");
 
   //for making url
-  const userUrl = `https://feedback-ashen-nine.vercel.app/u/${user?.username}`;
+  const userUrl = `https://feedback-ashen-nine.vercel.app/user/${user?.username}`;
 
   //getting isAcceptingMessage sate from server
   const getIsAcceptingMessages = async () => {
@@ -142,11 +142,24 @@ const Dashboard = () => {
         title={`${user?.username} Dashboard`}
         description={`This is ${user?.username} Dashboard`}
       />
+
       <div className='max-w-5xl flex flex-col justify-center p-4 mx-auto'>
         <Heading variant='darkMuted'>
-          Welcome{" "}
-          <span className='text-primary uppercase mx-1'>{user?.username}</span>{" "}
-          to Dashboard
+          {user?.username ? (
+            <>
+              Welcome{" "}
+              <span className='text-primary uppercase mx-1'>
+                {user?.username}
+              </span>{" "}
+              to Dashboard
+            </>
+          ) : (
+            <Card>
+              <CardContent className='p-3 md:p-5'>
+                <Skeleton className='w-full h-12' />
+              </CardContent>
+            </Card>
+          )}
         </Heading>
         {/* 1st section */}
         <Paragraph
@@ -182,31 +195,66 @@ const Dashboard = () => {
             </span>
           </div>
           <Separator className='my-2' />
-          <>
-            {messages && messages.length > 0 ? (
-              <div className='grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-4 mt-8 mx-auto w-fit'>
-                {messages.map((message) => (
-                  <MessageCard
-                    key={message._id}
-                    message={message}
-                    onMessageDelete={onMessageDelete}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className=' w-full mx-auto p-5'>
-                <Card className=' w-fit rounded-sm py-2 px-4 mb-2'>
-                  <RotateCw
-                    onClick={getMessages}
-                    className={`text-muted-foreground ${
-                      isFetchigMessage ? "animate-spin" : ""
-                    }`}
-                  />
-                </Card>
-                <Paragraph>no messages to display</Paragraph>
-              </div>
-            )}
-          </>
+          {user?.username ? (
+            <>
+              {messages && messages.length > 0 ? (
+                <div className='grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-4 mt-8 mx-auto w-fit'>
+                  {messages.map((message) => (
+                    <MessageCard
+                      key={message._id}
+                      message={message}
+                      onMessageDelete={onMessageDelete}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className=' w-full mx-auto p-5'>
+                  <Card className=' w-fit rounded-sm py-2 px-4 mb-2'>
+                    <RotateCw
+                      onClick={getMessages}
+                      className={`text-muted-foreground ${
+                        isFetchigMessage ? "animate-spin" : ""
+                      }`}
+                    />
+                  </Card>
+                  <Paragraph>no messages to display</Paragraph>
+                </div>
+              )}
+            </>
+          ) : (
+            <div className='grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-4 mt-8 mx-auto w-full'>
+              <Card className='max-w-lg flex flex-col justify-between'>
+                <CardContent className='flex flex-col justify-start'>
+                  <div className='flex items-center justify-between gap-10'>
+                    <Skeleton className='w-full h-20 mt-5' />
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Skeleton className='w-full h-10' />
+                </CardFooter>
+              </Card>
+              <Card className='max-w-lg flex flex-col justify-between'>
+                <CardContent className='flex flex-col justify-start'>
+                  <div className='flex items-center justify-between gap-10'>
+                    <Skeleton className='w-full h-20 mt-5' />
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Skeleton className='w-full h-10' />
+                </CardFooter>
+              </Card>
+              <Card className='max-w-lg flex flex-col justify-between'>
+                <CardContent className='flex flex-col justify-start'>
+                  <div className='flex items-center justify-between gap-10'>
+                    <Skeleton className='w-full h-20 mt-5' />
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Skeleton className='w-full h-10' />
+                </CardFooter>
+              </Card>
+            </div>
+          )}
         </div>
       </div>
     </>

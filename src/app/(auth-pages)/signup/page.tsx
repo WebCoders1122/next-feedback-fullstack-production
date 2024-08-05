@@ -265,7 +265,7 @@ const SignupPage = () => {
               <div className='text-center text-sm w-full'>
                 Already Registered!
                 <Link
-                  className='text-primary underline font-medium'
+                  className='text-primary underline font-medium ml-2'
                   href={"/login"}>
                   {" "}
                   Login Here

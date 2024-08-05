@@ -83,19 +83,19 @@ const ResetPasswordPage = () => {
         title='New Password - Anonymous Feedback'
         description='This is New Password Page for Anonymous Feedback'
       />
-      <div className='bg-background sm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
+      <div className='bg-background xsm:min-h-[80vh] max-w-[480px] mx-auto p-5 flex justify-center items-center'>
         <div>
           {/* heading div started */}
           <Card>
             <CardHeader>
-              <Heading>Reset Password</Heading>
+              <Heading>Reset Your Password</Heading>
             </CardHeader>
             <CardContent>
               {/* form started */}
               <Form {...reset}>
                 <form
                   onSubmit={reset.handleSubmit(onSubmit)}
-                  className='space-y-6 w-[360px]'>
+                  className='space-y-6'>
                   <FormField
                     name='password'
                     control={reset.control}
